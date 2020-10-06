@@ -1,21 +1,18 @@
+import axios from 'axios'
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
+import AppContainer from './containers/AppContainer'
+
+axios.defaults.baseURL = 'https://www.googleapis.com/youtube/v3/'
+axios.defaults.headers.common[
+  'Authorization'
+] = `${process.env.REACT_APP_YOUTUBE_APIKEY}`
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppContainer />
     </div>
   )
 }
