@@ -8,14 +8,15 @@ import {
 } from '@material-ui/core'
 import LinkIcon from '@material-ui/icons/Link'
 import LoadingButton from '../../global/customComponents/LoadingButton/LoadingButton'
-import api from './getData'
+import { getDetailsByVideoId, searchPlayListApi } from './getData'
 import { PlayListSearchContext } from '../../global/Contexts/PlaylistDataContext'
 
 const SearchBar = () => {
-  const classes = useStyles()
   const { updateSearchData } = useContext(PlayListSearchContext)
   const [playListUrl, setPlayListUrl] = useState('')
   const [playListSearchData, setPlayListSearchData] = useState([])
+  const [initiatedSearch, setInitiatedSearch] = useState(false)
+  const classes = useStyles({ initiatedSearch })
 
   const urlInputHandler = (e) => {
     setPlayListUrl(e.target.value)
@@ -23,9 +24,28 @@ const SearchBar = () => {
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
-    api
-      .getData('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
-      .then((res) => updateSearchData(res.data))
+    // api
+    //   .getData('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
+    //   .then((res) => updateSearchData(res.data))
+    //   .then((res) => setInitiatedSearch(true))
+    // api
+    searchPlayListApi('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
+      .then((res) => {
+        updateSearchData(res.data)
+        console.log(res.data.items)
+        getDetailsByVideoId(sortVideosId(res.data.items))
+      })
+      .then((res) => setInitiatedSearch(true))
+  }
+
+  const sortVideosId = (data)=>{
+    let ids = []
+    data.map((video)=>(
+      ids.push(video.contentDetails.videoId)
+    ))
+    console.log(ids)
+    console.log(ids.toString())
+    return ids.toString()
   }
 
   useEffect(() => {
@@ -64,10 +84,10 @@ const SearchBar = () => {
   )
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     formContainerStyles: {
-      height: '70vh',
+      height: (props) => (props.initiatedSearch ? '30vh' : '70vh'),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
