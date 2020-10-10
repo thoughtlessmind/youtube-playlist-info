@@ -3,18 +3,21 @@ import { Box, createStyles, makeStyles } from '@material-ui/core'
 import SearchBar from '../components/SearchBar/SearchBar'
 import Appbar from '../components/Appbar/Appbar'
 import PlaylistTime from '../components/PlaylistTime/PlaylistTime'
-import { PlaylistSeachSotre } from '../global/Contexts/PlaylistDataContext'
+import {
+  PlaylistSeachSotre,
+  StoreProvider,
+} from '../global/Contexts/PlaylistDataContext'
 
 const AppContainer = () => {
   const classes = useStyles()
   return (
-    <Box className={classes.containerStyle}>
-      <Appbar />
-      <PlaylistSeachSotre>
+    <StoreProvider>
+      <Box className={classes.containerStyle}>
+        <Appbar />
         <SearchBar />
         <PlaylistTime />
-      </PlaylistSeachSotre>
-    </Box>
+      </Box>
+    </StoreProvider>
   )
 }
 

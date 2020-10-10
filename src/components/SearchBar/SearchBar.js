@@ -9,13 +9,15 @@ import {
 import LinkIcon from '@material-ui/icons/Link'
 import LoadingButton from '../../global/customComponents/LoadingButton/LoadingButton'
 import { getDetailsByVideoId, searchPlayListApi } from './getData'
-import { PlayListSearchContext } from '../../global/Contexts/PlaylistDataContext'
+import { globalStore } from '../../global/Contexts/PlaylistDataContext'
 
 const SearchBar = () => {
-  const { updateSearchData } = useContext(PlayListSearchContext)
+  // const { updateSearchData } = useContext(PlayListSearchContext)
+  const { playlistSearchData, dispatch } = useContext(globalStore)
   const [playListUrl, setPlayListUrl] = useState('')
   const [playListSearchData, setPlayListSearchData] = useState([])
   const [initiatedSearch, setInitiatedSearch] = useState(false)
+  const [loading, setLoading] = useState(false)
   const classes = useStyles({ initiatedSearch })
 
   const urlInputHandler = (e) => {
@@ -24,27 +26,24 @@ const SearchBar = () => {
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
-    // api
-    //   .getData('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
-    //   .then((res) => updateSearchData(res.data))
-    //   .then((res) => setInitiatedSearch(true))
-    // api
+    setLoading(true)
     searchPlayListApi('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
       .then((res) => {
-        updateSearchData(res.data)
+        // updateSearchData(res.data)
+        dispatch({type:'UPDATE_PLAYLIST_SEARCH', payload: res.data})
         console.log(res.data.items)
         getDetailsByVideoId(sortVideosId(res.data.items))
+        .then(res => dispatch({type:'UPDATE_VIDEO_SEARCH', payload:res.data}))
       })
       .then((res) => setInitiatedSearch(true))
+      .then(()=>setLoading(false))
   }
 
-  const sortVideosId = (data)=>{
+  const sortVideosId = (videosData)=>{
     let ids = []
-    data.map((video)=>(
+    videosData.map((video)=>(
       ids.push(video.contentDetails.videoId)
     ))
-    console.log(ids)
-    console.log(ids.toString())
     return ids.toString()
   }
 
@@ -72,7 +71,7 @@ const SearchBar = () => {
           }}
         />
         <LoadingButton
-          // loading={false}
+          loading={loading}
           type="submit"
           variant="contained"
           color="primary"
@@ -91,6 +90,7 @@ const useStyles = makeStyles((theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      transition: 'height 0.5s ease-out'
     },
     formStyles: {
       display: 'flex',
