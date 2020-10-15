@@ -16,6 +16,7 @@ const PageContainer = () => {
         <Grid item md={6}>
           <PlaylistSummary />
         </Grid>
+      </Grid>
     </Box>
   )
 }
