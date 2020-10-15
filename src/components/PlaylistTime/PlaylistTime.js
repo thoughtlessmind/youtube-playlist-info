@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, makeStyles, createStyles, Typography } from '@material-ui/core'
+import {
+  Box,
+  makeStyles,
+  createStyles,
+  Typography,
+  Paper,
+} from '@material-ui/core'
 import { getProperty, parseISODuration, secondToMinutes } from 'utils'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 
@@ -26,18 +32,19 @@ const PlaylistTime = () => {
   
 
   return (
-    <Box>
+    <Box className={classes.mainContainer} component={Paper}>
       <Box>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
-          <Typography>
-            Videos-
-            {getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}
-          </Typography>
+          
           <Typography>Total Time</Typography>
           <Typography variant="h4">
             {secondToMinutes(calculateddTime)}
           </Typography>
         </Box>
+          <Typography>
+            Videos-
+            {getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}
+          </Typography>
         <Box>
           <Box component={'ul'} className={classes.listStyle}>
             <Typography component={'li'}>
@@ -55,12 +62,6 @@ const PlaylistTime = () => {
             </Typography>
           </Box>
         </Box>
-        <Typography component="span" variant="body2">
-          1x:
-        </Typography>
-        <Typography component="span" variant="body2">
-          {secondToMinutes(calculateddTime / 2)}
-        </Typography>
       </Box>
       {getProperty(playlistSearchData, '.items', []).map((item) => (
         <p key={item.etag}>{item.snippet.title}</p>
@@ -71,6 +72,9 @@ const PlaylistTime = () => {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    mainContainer:{
+      padding:theme.spacing(4)
+    },
     listStyle: {
       '& li>span': {
         width: '75px',

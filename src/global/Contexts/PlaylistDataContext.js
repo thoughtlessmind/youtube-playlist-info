@@ -2,24 +2,10 @@ import React, { useState, useReducer, useEffect } from 'react'
 const UPDATE_PLAYLIST_SEARCH = 'UPDATE_PLAYLIST_SEARCH'
 const UPDATE_VIDEO_SEARCH = 'UPDATE_VIDEO_SEARCH'
 
-/* 
-export const PlayListSearchContext = React.createContext({
-  searchData: [],
-  updateSearchData: () => {},
-})
-
-export const PlaylistSeachSotre = ({ children }) => {
-  const [searchData, updateSearchData] = useState({})
-
-  return (
-    <PlayListSearchContext.Provider value={{ searchData, updateSearchData }}>
-      {children}
-    </PlayListSearchContext.Provider>
-  )
-}
- */
 
 export const globalStore = React.createContext({})
+
+
 
 const initialState = {
   playlistSearchData: [],

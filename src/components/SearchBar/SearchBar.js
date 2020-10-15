@@ -7,12 +7,11 @@ import {
   TextField,
 } from '@material-ui/core'
 import LinkIcon from '@material-ui/icons/Link'
-import LoadingButton from '../../global/customComponents/LoadingButton/LoadingButton'
-import { getDetailsByVideoId, searchPlayListApi } from './getData'
-import { globalStore } from '../../global/Contexts/PlaylistDataContext'
+import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
+import { globalStore } from 'global/Contexts/PlaylistDataContext'
+import { getDetailsByVideoId, searchPlayListApi } from 'api'
 
 const SearchBar = () => {
-  // const { updateSearchData } = useContext(PlayListSearchContext)
   const { playlistSearchData, dispatch } = useContext(globalStore)
   const [playListUrl, setPlayListUrl] = useState('')
   const [playListSearchData, setPlayListSearchData] = useState([])
@@ -30,20 +29,19 @@ const SearchBar = () => {
     searchPlayListApi('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
       .then((res) => {
         // updateSearchData(res.data)
-        dispatch({type:'UPDATE_PLAYLIST_SEARCH', payload: res.data})
+        dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
         console.log(res.data.items)
-        getDetailsByVideoId(sortVideosId(res.data.items))
-        .then(res => dispatch({type:'UPDATE_VIDEO_SEARCH', payload:res.data}))
+        getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
+          dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
+        )
       })
       .then((res) => setInitiatedSearch(true))
-      .then(()=>setLoading(false))
+      .then(() => setLoading(false))
   }
 
-  const sortVideosId = (videosData)=>{
+  const sortVideosId = (videosData) => {
     let ids = []
-    videosData.map((video)=>(
-      ids.push(video.contentDetails.videoId)
-    ))
+    videosData.map((video) => ids.push(video.contentDetails.videoId))
     return ids.toString()
   }
 

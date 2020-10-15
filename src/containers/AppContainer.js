@@ -1,21 +1,19 @@
 import React from 'react'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
-import SearchBar from '../components/SearchBar/SearchBar'
 import Appbar from '../components/Appbar/Appbar'
-import PlaylistTime from '../components/PlaylistTime/PlaylistTime'
 import {
   PlaylistSeachSotre,
   StoreProvider,
 } from '../global/Contexts/PlaylistDataContext'
+import PageContainer from './PageContainer'
 
 const AppContainer = () => {
   const classes = useStyles()
   return (
     <StoreProvider>
-      <Box className={classes.containerStyle}>
+      <Box className={classes.appContainerStyle}>
         <Appbar />
-        <SearchBar />
-        <PlaylistTime />
+        <PageContainer  />
       </Box>
     </StoreProvider>
   )
@@ -23,7 +21,7 @@ const AppContainer = () => {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    containerStyle: {
+    appContainerStyle: {
       minHeight: '100vh',
     },
   })
