@@ -7,7 +7,7 @@ import {
   Paper,
 } from '@material-ui/core'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
-import { calculateTotalViews, getProperty } from 'utils'
+import { abbrNumber, calculateTotalViews, getProperty } from 'utils'
 
 const PlaylistSummary = () => {
   const classes = useStyles()
@@ -30,7 +30,10 @@ const PlaylistSummary = () => {
         <Box className={classes.infoContainer}>
           <Typography>Total Views - </Typography>
           <Typography>
-            {calculateTotalViews(getProperty(videosSearchData, '.items', []))}
+            {abbrNumber(
+              calculateTotalViews(getProperty(videosSearchData, '.items', [])),
+              2
+            )}
           </Typography>
         </Box>
       </Box>

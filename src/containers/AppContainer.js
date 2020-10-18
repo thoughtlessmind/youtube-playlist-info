@@ -1,11 +1,12 @@
 import React from 'react'
 import { Box, createStyles, makeStyles } from '@material-ui/core'
-import Appbar from '../components/Appbar/Appbar'
+// import Appbar from '../components/Appbar/Appbar'
 import {
   PlaylistSeachSotre,
   StoreProvider,
-} from '../global/Contexts/PlaylistDataContext'
+} from 'global/Contexts/PlaylistDataContext'
 import PageContainer from './PageContainer'
+import { Appbar } from 'components'
 
 const AppContainer = () => {
   const classes = useStyles()

@@ -63,9 +63,9 @@ const PlaylistTime = () => {
           </Box>
         </Box>
       </Box>
-      {getProperty(playlistSearchData, '.items', []).map((item) => (
+      {/* {getProperty(playlistSearchData, '.items', []).map((item) => (
         <p key={item.etag}>{item.snippet.title}</p>
-      ))}
+      ))} */}
     </Box>
   )
 }

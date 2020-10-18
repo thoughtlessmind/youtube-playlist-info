@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box, makeStyles, createStyles, Grid } from '@material-ui/core'
-import SearchBar from 'components/SearchBar/SearchBar'
-import PlaylistTime from 'components/PlaylistTime/PlaylistTime'
-import PlaylistSummary from 'components/PlaylistSummary/PlaylistSummary'
+import { PlaylistSummary, PlaylistTime, SearchBar } from 'components'
 
 const PageContainer = () => {
   const classes = useStyles()
