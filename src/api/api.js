@@ -1,15 +1,21 @@
 import axios from 'axios'
-const KEY = 'AIzaSyAWz06FEGtCppFDdTIioYol4c4W4nDkbAU'
 const API_KEY = process.env.REACT_APP_YOUTUBE_APIKEY
 
 /**
  * Gets the playlist info
  * @param {String} playlistId Playlist Id of which data neds to be feteched
  */
+
 export const searchPlayListApi = (playlistId) => {
   return axios({
     method: 'GET',
-    url: `/playlistItems?part=snippet%2CcontentDetails%2C%20status%2C%20id&maxResults=10&playlistId=${playlistId}&key=${API_KEY}`,
+    url: `/playlistItems`,
+    params: {
+      part: 'snippet,contentDetails,status,id',
+      maxResults: '50',
+      playlistId,
+      key: API_KEY,
+    },
   })
 }
 
@@ -20,6 +26,11 @@ export const searchPlayListApi = (playlistId) => {
 export const getDetailsByVideoId = (videoIds) => {
   return axios({
     method: 'GET',
-    url: `/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoIds}&key=${API_KEY}`,
+    url: `/videos`,
+    params: {
+      part: 'snippet,contentDetails,statistics',
+      id: videoIds,
+      key: API_KEY,
+    },
   })
 }
