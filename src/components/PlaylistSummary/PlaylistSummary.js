@@ -19,7 +19,7 @@ const PlaylistSummary = () => {
 
   return (
     <Box component={Paper} className={classes.mainContainer}>
-      <Typography variant="h4">Playlist Summary</Typography>
+      <Typography variant="h5">Playlist Summary</Typography>
       <Box>
         <Box className={classes.infoContainer}>
           <Typography>Videos - </Typography>
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(4),
+      height: '100%',
     },
     infoContainer: {
       display: 'flex',
