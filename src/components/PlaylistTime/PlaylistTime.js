@@ -34,17 +34,19 @@ const PlaylistTime = () => {
   return (
     <Box className={classes.mainContainer} component={Paper}>
       <Box>
-        <Box style={{ display: 'flex', alignItems: 'center' }}>
-          
-          <Typography>Total Time</Typography>
-          <Typography variant="h4">
+
+        <Box className={classes.oneLineDataContainer}>
+          <Typography component={"span"}>Total Time - </Typography>
+          <Typography variant="h4" component={"span"}>
             {secondToMinutes(calculateddTime)}
           </Typography>
         </Box>
-          <Typography>
-            Videos-
-            {getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}
+        <Box className={classes.oneLineDataContainer}>
+          <Typography component={"span"} >
+            Videos -
           </Typography>
+          <Typography variant="h5"  component={"span"}>{getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}</Typography>
+        </Box>
         <Box>
           <Box component={'ul'} className={classes.listStyle}>
             <Typography component={'li'}>
@@ -81,6 +83,17 @@ const useStyles = makeStyles((theme) =>
         display: 'inline-block',
       },
     },
+    oneLineDataContainer:{
+      display:'flex',
+      alignItems:'center',
+      '& span:first-child ':{
+        width:'100px',
+        display:'inline-block',
+        textAlign:'right',
+        marginRight:'10px',
+        whiteSpace:'nowrap'
+      }
+    }
   })
 )
 
