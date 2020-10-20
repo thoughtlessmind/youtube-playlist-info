@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, makeStyles, createStyles, Grid } from '@material-ui/core'
 import { PlaylistSummary, PlaylistTime, SearchBar } from 'components'
+import PlaylistVideos from 'components/PlaylistVideos/PlaylistVideos'
 
 const PageContainer = () => {
   const classes = useStyles()
@@ -13,6 +14,11 @@ const PageContainer = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <PlaylistSummary />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <PlaylistVideos />
         </Grid>
       </Grid>
     </Box>
