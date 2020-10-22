@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Box,
   makeStyles,
@@ -8,15 +8,40 @@ import {
 } from '@material-ui/core'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import EventIcon from '@material-ui/icons/Event'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { abbrNumber } from 'utils'
+import { globalStore } from 'global/Contexts/PlaylistDataContext'
 
 const VideoCards = (props) => {
-  const { index, thumbnail, title, publishedAt, likeCount, viewCount } = props
+  const {
+    index,
+    thumbnail,
+    title,
+    publishedAt,
+    likeCount,
+    viewCount,
+    videoId,
+  } = props
+  const { playlistId } = useContext(globalStore)
   const classes = useStyles()
+
+  const openVideoLink = () => {
+    window.open(
+      `https://youtube.com/watch?v=${videoId}&list=${playlistId}`,
+      '_blank'
+    )
+  }
+
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={2}
+      className={classes.cardContainer}
+      onClick={openVideoLink}
+    >
       <Grid item md={1} xs={1}>
         <Typography>{index}</Typography>
       </Grid>
@@ -27,7 +52,13 @@ const VideoCards = (props) => {
         <Typography variant={'h5'} className={classes.videoTitle}>
           {title}
         </Typography>
-        <Typography>
+        <Typography
+          variant="body2"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          {/* <EventIcon style={{marginRight: '8px',
+            fontSize: '18px',
+            color: 'gray',}}/> */}
           <Moment fromNow>{publishedAt}</Moment>
         </Typography>
         <Box className={classes.statsContainer}>
@@ -37,16 +68,29 @@ const VideoCards = (props) => {
           </Typography>
           <Typography variant="body2">
             <ThumbUpAltIcon />
-            {likeCount}
+            {abbrNumber(likeCount, 1)}
           </Typography>
         </Box>
       </Grid>
+      <OpenInNewIcon className={classes.openIcon} />
     </Grid>
   )
 }
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    cardContainer: {
+      cursor: 'pointer',
+      transition: 'background-color 0.2s',
+      borderRadius: theme.shape.borderRadius,
+      position: 'relative',
+      '&:hover': {
+        backgroundColor: 'rgb(70 70 70 / 12%)',
+        '& $openIcon': {
+          transform: 'scale(1)',
+        },
+      },
+    },
     statsContainer: {
       display: 'flex',
       alignItems: 'center',
@@ -60,6 +104,13 @@ const useStyles = makeStyles((theme) =>
           color: 'gray',
         },
       },
+    },
+    openIcon: {
+      position: 'absolute',
+      bottom: '10px',
+      right: '10px',
+      transform: 'scale(0)',
+      transition: 'transform 0.15s ease-in-out ',
     },
     [theme.breakpoints.down('sm')]: {
       videoTitle: {
@@ -81,6 +132,7 @@ VideoCards.propTypes = {
   likeCount: PropTypes.string.isRequired,
   viewCount: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  videoId: PropTypes.string.isRequired,
 }
 
 export default VideoCards

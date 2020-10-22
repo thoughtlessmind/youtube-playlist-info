@@ -1,5 +1,4 @@
 import axios from 'axios'
-const KEY = 'AIzaSyAWz06FEGtCppFDdTIioYol4c4W4nDkbAU'
 const API_KEY = process.env.REACT_APP_YOUTUBE_APIKEY
 
 export default {

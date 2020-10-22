@@ -10,6 +10,7 @@ export const globalStore = React.createContext({})
 const initialState = {
   playlistSearchData: [],
   videosSearchData: [],
+  playlistId: 'PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3',
   dispatch: () => {},
 }
 
