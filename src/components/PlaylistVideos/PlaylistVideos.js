@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Box,
   makeStyles,
@@ -15,23 +15,39 @@ import { getProperty } from 'utils'
 
 const PlaylistVideos = () => {
   const classes = useStyles()
-  const { videosSearchData } = useContext(globalStore)
+  const { videosSearchData, playlistId } = useContext(globalStore)
+  const [expandedState, setExpandedState] = useState(false)
+
+  const accordioExpandHandler = () => {
+    setExpandedState((prev) => setExpandedState(!prev))
+  }
+
   return (
     <Box>
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion expanded={expandedState}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          onClick={accordioExpandHandler}
+          className={
+            expandedState &&
+            Object.keys(videosSearchData).length !== 0 &&
+            classes.accordionSummaryRoot
+          }
+        >
           <Typography variant="h5">Videos</Typography>
         </AccordionSummary>
         <AccordionDetails classes={{ root: classes.accordionDetailsRootStyle }}>
           {getProperty(videosSearchData, '.items', []).map((item, index) => (
             <VideoCards
               key={item.id}
+              videoId={item.id}
               index={index + 1}
               title={item.snippet.title}
               publishedAt={item.snippet.publishedAt}
               thumbnail={item.snippet.thumbnails.medium.url}
               viewCount={item.statistics.viewCount}
               likeCount={item.statistics.likeCount}
+              listId={playlistId}
             />
           ))}
         </AccordionDetails>
@@ -46,6 +62,10 @@ const useStyles = makeStyles((theme) =>
       display: 'block',
       overflow: 'scroll',
       maxHeight: '600px',
+      padding: `${theme.spacing(2)}px ${theme.spacing(3)} px`,
+    },
+    accordionSummaryRoot: {
+      boxShadow: '0px 1px 2px 0px #0e0e0e08, 0px 3px 4px 0px #4c4c4c54',
     },
   })
 )
