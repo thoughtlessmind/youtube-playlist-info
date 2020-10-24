@@ -46,7 +46,16 @@ const VideoCards = (props) => {
         <Typography>{index}</Typography>
       </Grid>
       <Grid item md={4} xs={4} style={{ maxWidth: '300px' }}>
-        <img width="100%" height="auto" src={thumbnail} />
+        <Box className={classes.imageWrapper}>
+          <img width="100%" height="auto" src={thumbnail} />
+          <Typography 
+            component="span" 
+            variant="body2" 
+            className={classes.imageOverlayTime}
+          >
+            9:45
+          </Typography>
+        </Box>
       </Grid>
       <Grid item md={7} xs={7}>
         <Typography variant={'h6'} className={classes.videoTitle}>
@@ -90,6 +99,23 @@ const useStyles = makeStyles((theme) =>
           transform: 'scale(1)',
         },
       },
+    },
+    imageWrapper: {
+      width: 'fit-content',
+      position:'relative'
+    },
+    imageOverlayTime:{
+      position:'absolute',
+      bottom:5,
+      right:0,
+      background:'rgba(0,0,0,0.8)',
+      color:'#fff',
+      padding:'5px',
+      lineHeight:'0.8',
+      fontSize:'12px',
+      letterSpacing:'0.5px',
+      borderBottomLeftRadius:theme.shape.borderRadius,
+      borderTopLeftRadius:theme.shape.borderRadius,
     },
     statsContainer: {
       display: 'flex',
