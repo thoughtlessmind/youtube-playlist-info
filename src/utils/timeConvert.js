@@ -4,5 +4,8 @@
  * @returns HH:MM:SS
  */
 export const secondToMinutes = (seconds) => {
-  return new Date(seconds * 1000).toISOString().substr(11, 8)
+  let total = new Date(seconds * 1000).toISOString().substr(11, 8)
+  if (seconds <= 3599) {
+    return total.substring(3)
+  } else return total
 }

@@ -12,7 +12,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import EventIcon from '@material-ui/icons/Event'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import { abbrNumber } from 'utils'
+import { abbrNumber, parseISODuration, secondToMinutes } from 'utils'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 
 const VideoCards = (props) => {
@@ -24,6 +24,7 @@ const VideoCards = (props) => {
     likeCount,
     viewCount,
     videoId,
+    duration,
   } = props
   const { playlistId } = useContext(globalStore)
   const classes = useStyles()
@@ -34,6 +35,8 @@ const VideoCards = (props) => {
       '_blank'
     )
   }
+
+  console.log('duration---------', duration)
 
   return (
     <Grid
@@ -48,12 +51,12 @@ const VideoCards = (props) => {
       <Grid item md={4} xs={4} style={{ maxWidth: '300px' }}>
         <Box className={classes.imageWrapper}>
           <img width="100%" height="auto" src={thumbnail} />
-          <Typography 
-            component="span" 
-            variant="body2" 
+          <Typography
+            component="span"
+            variant="body2"
             className={classes.imageOverlayTime}
           >
-            9:45
+            {secondToMinutes(parseISODuration(duration))}
           </Typography>
         </Box>
       </Grid>
@@ -156,6 +159,7 @@ VideoCards.propTypes = {
   title: PropTypes.string.isRequired,
   publishedAt: PropTypes.string.isRequired,
   likeCount: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
   viewCount: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   videoId: PropTypes.string.isRequired,

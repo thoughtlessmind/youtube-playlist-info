@@ -48,6 +48,7 @@ const PlaylistVideos = () => {
               viewCount={item.statistics.viewCount}
               likeCount={item.statistics.likeCount}
               listId={playlistId}
+              duration={item.contentDetails.duration}
             />
           ))}
         </AccordionDetails>
