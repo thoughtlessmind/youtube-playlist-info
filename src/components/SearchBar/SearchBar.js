@@ -2,31 +2,35 @@ import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
   createStyles,
+  FormControl,
+  Input,
   InputAdornment,
+  InputLabel,
   makeStyles,
+  OutlinedInput,
   TextField,
 } from '@material-ui/core'
 import LinkIcon from '@material-ui/icons/Link'
 import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
+import { getIdFromUrl } from 'utils'
 
 const SearchBar = () => {
-  const { playlistSearchData, dispatch } = useContext(globalStore)
-  const [playListUrl, setPlayListUrl] = useState('')
-  const [playListSearchData, setPlayListSearchData] = useState([])
+  const { dispatch } = useContext(globalStore)
+  const [userInput, setUserInput] = useState('')
   const [initiatedSearch, setInitiatedSearch] = useState(false)
   const [loading, setLoading] = useState(false)
   const classes = useStyles({ initiatedSearch })
 
   const urlInputHandler = (e) => {
-    setPlayListUrl(e.target.value)
+    setUserInput(e.target.value)
   }
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
     setLoading(true)
-    searchPlayListApi('PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3')
+    searchPlayListApi(getIdFromUrl(userInput))
       .then((res) => {
         // updateSearchData(res.data)
         dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
@@ -37,6 +41,7 @@ const SearchBar = () => {
       })
       .then((res) => setInitiatedSearch(true))
       .then(() => setLoading(false))
+      .catch((err) =>   setLoading(false))
   }
 
   const sortVideosId = (videosData) => {
@@ -45,37 +50,32 @@ const SearchBar = () => {
     return ids.toString()
   }
 
-  useEffect(() => {
-    console.log('---', playListSearchData)
-  }, [playListSearchData])
-
   return (
     <Box className={classes.formContainerStyles}>
-      <form className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
-        <TextField
-          // className={classes.margin}
-          id="input-with-icon-textfield"
-          label="Link"
-          placeholder="Paste YouTube playlist link here"
-          className={classes.linkInputStyle}
-          value={playListUrl}
-          onChange={urlInputHandler}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LinkIcon style={{ color: 'blue' }} />
+      <form  className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
+        <FormControl>
+          <InputLabel classes={{formControl:classes.inputLabelStyle}}>Playlist URL</InputLabel>
+          <OutlinedInput
+            // className={classes.linkInputStyle}
+            value={userInput}
+            labelWidth={100}
+            onChange={urlInputHandler}
+            required
+            // classes={{input:classes.outlinedInputStyle}}
+            endAdornment={
+              <InputAdornment position="end">
+                <LoadingButton
+                  loading={loading}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  Search
+                </LoadingButton>
               </InputAdornment>
-            ),
-          }}
-        />
-        <LoadingButton
-          loading={loading}
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Search
-        </LoadingButton>
+            }
+          />
+        </FormControl>
       </form>
     </Box>
   )
@@ -88,18 +88,25 @@ const useStyles = makeStyles((theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      transition: 'height 0.5s ease-out'
+      transition: 'height 0.5s ease-out',
     },
-    formStyles: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
+    formStyles:{
+      width:'60%',
+      minWidth:'350px',
+      '& > div:first-child':{
+        width:'100%',
+        maxWidth:'800px',
+        minWidth:'350px',
+      }
     },
-    linkInputStyle: {
-      width: '40%',
-      minWidth: '200px',
+    inputLabelStyle:{
+        top:'-7px',
+        left:'21px'
     },
+    outlinedInputStyle:{
+      padding:'10px 20px',
+      height:'1.5em'
+    }
   })
 )
 

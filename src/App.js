@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useTitle } from 'customHooks'
 import React from 'react'
 import './App.css'
 import AppContainer from './containers/AppContainer'
@@ -9,6 +10,7 @@ axios.defaults.headers.common[
 
 
 function App() {
+  useTitle('YouTube Plalist Info || Get the watch time of the YouTube playlist')
   return (
     <div className="App">
       <AppContainer />

@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core'
 
-const AppName = process.env.REACT_APP_NAME
+const AppName = 'YouTube Playlist Info'
 
 /**
  * App header bar
@@ -17,12 +17,22 @@ const Appbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography>{AppName}</Typography>
+        <Typography className={classes.appNameStyle} variant="h1">
+          {AppName}
+        </Typography>
       </Toolbar>
     </AppBar>
   )
 }
 
-const useStyles = makeStyles(() => createStyles({}))
+const useStyles = makeStyles(() =>
+  createStyles({
+    appNameStyle: {
+      fontSize: '1.3rem',
+      wordSpacing: '1.5px',
+      letterSpacing: '0.3px',
+    },
+  })
+)
 
 export default Appbar

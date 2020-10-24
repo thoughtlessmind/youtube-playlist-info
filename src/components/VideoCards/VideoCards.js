@@ -49,7 +49,7 @@ const VideoCards = (props) => {
         <img width="100%" height="auto" src={thumbnail} />
       </Grid>
       <Grid item md={7} xs={7}>
-        <Typography variant={'h5'} className={classes.videoTitle}>
+        <Typography variant={'h6'} className={classes.videoTitle}>
           {title}
         </Typography>
         <Typography

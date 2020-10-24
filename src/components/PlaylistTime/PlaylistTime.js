@@ -17,9 +17,9 @@ const PlaylistTime = () => {
 
   const calculateTime = (searchData) => {
     let time = 0
-    searchData.map((data, index) => {
-      time += parseISODuration(data.contentDetails.duration)
-    })
+    searchData.map(
+      (data) => (time += parseISODuration(data.contentDetails.duration))
+    )
     return time
   }
 
