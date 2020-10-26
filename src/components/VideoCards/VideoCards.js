@@ -36,8 +36,6 @@ const VideoCards = (props) => {
     )
   }
 
-  console.log('duration---------', duration)
-
   return (
     <Grid
       container
@@ -45,10 +43,11 @@ const VideoCards = (props) => {
       className={classes.cardContainer}
       onClick={openVideoLink}
     >
-      <Grid item md={1} xs={1}>
-        <Typography>{index}</Typography>
-      </Grid>
-      <Grid item md={4} xs={4} style={{ maxWidth: '300px' }}>
+      {/* <Grid item md={1} xs={1}>
+        <Typography variant="body2">{index}</Typography>
+      </Grid> */}
+      <Grid item md={4} xs={5} style={{ maxWidth: '300px', display:'flex', alignItems:'center' }}>
+        <Typography component="span" variant="body2" style={{marginRight:'0.5em'}}>{index}</Typography>
         <Box className={classes.imageWrapper}>
           <img width="100%" height="auto" src={thumbnail} />
           <Typography
@@ -65,20 +64,17 @@ const VideoCards = (props) => {
           {title}
         </Typography>
         <Typography
-          variant="body2"
+          variant="caption"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          {/* <EventIcon style={{marginRight: '8px',
-            fontSize: '18px',
-            color: 'gray',}}/> */}
           <Moment fromNow>{publishedAt}</Moment>
         </Typography>
         <Box className={classes.statsContainer}>
-          <Typography variant="body2">
+          <Typography variant="caption">
             <VisibilityIcon />
             {abbrNumber(viewCount, 0)}
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="caption">
             <ThumbUpAltIcon />
             {abbrNumber(likeCount, 1)}
           </Typography>
@@ -123,13 +119,13 @@ const useStyles = makeStyles((theme) =>
     statsContainer: {
       display: 'flex',
       alignItems: 'center',
-      '& > p': {
+      '& > span': {
         display: 'flex',
         alignItems: 'center',
         marginRight: theme.spacing(4),
         '& > svg': {
           marginRight: theme.spacing(1),
-          fontSize: '18px',
+          fontSize: '16px',
           color: 'gray',
         },
       },
@@ -148,7 +144,7 @@ const useStyles = makeStyles((theme) =>
     },
     [theme.breakpoints.down('xs')]: {
       videoTitle: {
-        fontSize: '1rem',
+        fontSize: '0.9rem',
       },
     },
   })

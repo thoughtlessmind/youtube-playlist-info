@@ -29,10 +29,20 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: `0 ${theme.spacing(8)}px`,
+      width: '80vw',
+      margin: '0 auto',
+      maxWidth: '1200px',
     },
     [theme.breakpoints.down('md')]: {
       mainContainer: {
         padding: `0 ${theme.spacing(4)}px`,
+        width:'100vw'
+      },
+    },
+    [theme.breakpoints.down('xs')]: {
+      mainContainer: {
+        padding: `0 ${theme.spacing(1.5)}px`,
+        width:'100vw'
       },
     },
   })
