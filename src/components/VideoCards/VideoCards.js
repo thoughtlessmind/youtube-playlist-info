@@ -46,20 +46,20 @@ const VideoCards = (props) => {
       {/* <Grid item md={1} xs={1}>
         <Typography variant="body2">{index}</Typography>
       </Grid> */}
-      <Grid item md={4} xs={5} style={{ maxWidth: '300px', display:'flex', alignItems:'center' }}>
-        <Typography component="span" variant="body2" style={{marginRight:'0.5em'}}>{index}</Typography>
+      <Grid item xs={3} md={3} style={{ maxWidth: '300px', display:'flex', alignItems:'center' }}>
         <Box className={classes.imageWrapper}>
+          <Typography component="span" variant="body2" className={`${classes.imageOverlay} ${classes.imageOverlayIndex}`}>{index}</Typography>
           <img width="100%" height="auto" src={thumbnail} />
           <Typography
             component="span"
             variant="body2"
-            className={classes.imageOverlayTime}
+            className={`${classes.imageOverlay} ${classes.imageOverlayTime}`}
           >
             {secondToMinutes(parseISODuration(duration))}
           </Typography>
         </Box>
       </Grid>
-      <Grid item md={7} xs={7}>
+      <Grid item xs={7}>
         <Typography variant={'h6'} className={classes.videoTitle}>
           {title}
         </Typography>
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) =>
       transition: 'background-color 0.2s',
       borderRadius: theme.shape.borderRadius,
       position: 'relative',
+      marginTop:'8px',
       '&:hover': {
         backgroundColor: 'rgb(70 70 70 / 12%)',
         '& $openIcon': {
@@ -103,16 +104,25 @@ const useStyles = makeStyles((theme) =>
       width: 'fit-content',
       position:'relative'
     },
-    imageOverlayTime:{
+    imageOverlay:{
       position:'absolute',
-      bottom:5,
-      right:0,
       background:'rgba(0,0,0,0.8)',
       color:'#fff',
       padding:'5px',
       lineHeight:'0.8',
       fontSize:'12px',
       letterSpacing:'0.5px',
+      
+    },
+    imageOverlayIndex:{
+      top:'0',
+      left:'0',
+      borderBottomRightRadius:theme.shape.borderRadius,
+      borderTopRighttRadius:theme.shape.borderRadius,
+    },
+    imageOverlayTime:{
+      bottom:5,
+      right:0,
       borderBottomLeftRadius:theme.shape.borderRadius,
       borderTopLeftRadius:theme.shape.borderRadius,
     },

@@ -16,21 +16,19 @@ import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
 import { getIdFromUrl } from 'utils'
 
+
 const SearchBar = () => {
   const { dispatch } = useContext(globalStore)
-  const [userInput, setUserInput] = useState('')
+  const inputRef = React.useRef(null)
   const [initiatedSearch, setInitiatedSearch] = useState(false)
   const [loading, setLoading] = useState(false)
   const classes = useStyles({ initiatedSearch })
 
-  const urlInputHandler = (e) => {
-    setUserInput(e.target.value)
-  }
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
     setLoading(true)
-    searchPlayListApi(getIdFromUrl(userInput))
+    searchPlayListApi(getIdFromUrl(inputRef.current.value))
       .then((res) => {
         // updateSearchData(res.data)
         dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
@@ -50,18 +48,23 @@ const SearchBar = () => {
     return ids.toString()
   }
 
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
   return (
     <Box className={classes.formContainerStyles}>
-      <form  className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
+      <form className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
         <FormControl>
-          <InputLabel classes={{formControl:classes.inputLabelStyle}}>Playlist URL</InputLabel>
+          <InputLabel
+            classes={{ formControl: classes.inputLabelStyle }}
+          >
+            Playlist URL
+          </InputLabel>
           <OutlinedInput
-            // className={classes.linkInputStyle}
-            value={userInput}
+            inputRef={inputRef}
             labelWidth={100}
-            onChange={urlInputHandler}
             required
-            // classes={{input:classes.outlinedInputStyle}}
             endAdornment={
               <InputAdornment position="end">
                 <LoadingButton

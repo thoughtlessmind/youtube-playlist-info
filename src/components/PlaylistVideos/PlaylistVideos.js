@@ -29,9 +29,9 @@ const PlaylistVideos = () => {
           expandIcon={<ExpandMoreIcon />}
           onClick={accordioExpandHandler}
           className={
-            expandedState &&
-            Object.keys(videosSearchData).length !== 0 &&
-            classes.accordionSummaryRoot
+            expandedState && Object.keys(videosSearchData).length !== 0
+              ? classes.accordionSummaryRoot
+              : ''
           }
         >
           <Typography variant="h5">Videos</Typography>
