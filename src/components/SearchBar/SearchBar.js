@@ -50,6 +50,9 @@ const SearchBar = () => {
 
   useEffect(() => {
     inputRef.current.focus()
+    if (process.env.NODE_ENV === 'development')
+      inputRef.current.value =
+        'https://www.youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3'
   }, [])
 
   return (

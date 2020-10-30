@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) =>
       transition: 'background-color 0.2s',
       borderRadius: theme.shape.borderRadius,
       position: 'relative',
-      marginTop:'8px',
+      marginTop: '8px',
       '&:hover': {
         backgroundColor: 'rgb(70 70 70 / 12%)',
         '& $openIcon': {
@@ -102,29 +102,35 @@ const useStyles = makeStyles((theme) =>
     },
     imageWrapper: {
       width: 'fit-content',
-      position:'relative'
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      '& > img':     {
+        borderRadius: theme.shape.borderRadius,
+      }
     },
-    imageOverlay:{
-      position:'absolute',
-      background:'rgba(0,0,0,0.8)',
-      color:'#fff',
-      padding:'5px',
-      lineHeight:'0.8',
-      fontSize:'12px',
-      letterSpacing:'0.5px',
-      
+    imageOverlay: {
+      position: 'absolute',
+      background: 'rgba(0,0,0,0.8)',
+      color: '#fff',
+      padding: '5px',
+      lineHeight: '0.8',
+      fontSize: '12px',
+      letterSpacing: '0.5px',
     },
-    imageOverlayIndex:{
-      top:'0',
-      left:'0',
-      borderBottomRightRadius:theme.shape.borderRadius,
-      borderTopRighttRadius:theme.shape.borderRadius,
+    imageOverlayIndex: {
+      top: '0',
+      left: '0',
+      borderRadius: theme.shape.borderRadius,
+      // borderBottomRightRadius: theme.shape.borderRadius,
+      // borderTopRighttRadius: theme.shape.borderRadius,
     },
-    imageOverlayTime:{
-      bottom:5,
-      right:0,
-      borderBottomLeftRadius:theme.shape.borderRadius,
-      borderTopLeftRadius:theme.shape.borderRadius,
+    imageOverlayTime: {
+      bottom: 5,
+      right: 0,
+      borderRadius: theme.shape.borderRadius,
+
+      // borderBottomLeftRadius: theme.shape.borderRadius,
+      // borderTopLeftRadius: theme.shape.borderRadius,
     },
     statsContainer: {
       display: 'flex',
