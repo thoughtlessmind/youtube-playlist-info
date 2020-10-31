@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, makeStyles, createStyles, Grid } from '@material-ui/core'
 import { PlaylistSummary, PlaylistTime, SearchBar } from 'components'
 import PlaylistVideos from 'components/PlaylistVideos/PlaylistVideos'
+import PlaylistVideosNew from 'components/PlaylistVideos/PlaylistVideosNew'
 
 const PageContainer = () => {
   const classes = useStyles()
@@ -18,7 +19,7 @@ const PageContainer = () => {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <PlaylistVideos />
+          <PlaylistVideosNew />
         </Grid>
       </Grid>
     </Box>
@@ -36,13 +37,13 @@ const useStyles = makeStyles((theme) =>
     [theme.breakpoints.down('md')]: {
       mainContainer: {
         padding: `0 ${theme.spacing(4)}px`,
-        width:'100vw'
+        width: '99vw',
       },
     },
     [theme.breakpoints.down('xs')]: {
       mainContainer: {
         padding: `0 ${theme.spacing(1.5)}px`,
-        width:'100vw'
+        width: '100vw',
       },
     },
   })

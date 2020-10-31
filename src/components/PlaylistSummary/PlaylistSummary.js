@@ -22,13 +22,13 @@ const PlaylistSummary = () => {
       <Typography variant="h5">Playlist Summary</Typography>
       <Box>
         <Box className={classes.infoContainer}>
-          <Typography>Videos - </Typography>
+          <Typography color={"textSecondary"}>Videos - </Typography>
           <Typography>
             {getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}
           </Typography>
         </Box>
         <Box className={classes.infoContainer}>
-          <Typography>Total Views - </Typography>
+          <Typography color={"textSecondary"}>Total Views - </Typography>
           <Typography>
             {abbrNumber(
               calculateTotalViews(getProperty(videosSearchData, '.items', [])),

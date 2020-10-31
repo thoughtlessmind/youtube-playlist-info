@@ -36,13 +36,13 @@ const PlaylistTime = () => {
       <Box>
 
         <Box className={classes.oneLineDataContainer}>
-          <Typography component={"span"}>Total Time - </Typography>
+          <Typography component={"span"} color="textSecondary">Total Time - </Typography>
           <Typography variant="h4" component={"span"}>
             {secondToMinutes(calculateddTime)}
           </Typography>
         </Box>
         <Box className={classes.oneLineDataContainer}>
-          <Typography component={"span"} >
+          <Typography component={"span"} color="textSecondary">
             Videos -
           </Typography>
           <Typography variant="h5"  component={"span"}>{getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}</Typography>
@@ -50,17 +50,16 @@ const PlaylistTime = () => {
         <Box>
           <Box component={'ul'} className={classes.listStyle}>
             <Typography component={'li'}>
-              <span>At 1.25x:-</span> {secondToMinutes(calculateddTime / 1.25)}
+              <span>1.25x </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 1.25)}
             </Typography>
             <Typography component={'li'}>
-              <span>At 1.5x:-</span> {secondToMinutes(calculateddTime / 1.5)}
+              <span>1.5x </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 1.5)}
             </Typography>
             <Typography component={'li'}>
-              <span>At 1.75x:-</span> {secondToMinutes(calculateddTime / 1.75)}
+              <span>1.75x </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 1.75)}
             </Typography>
             <Typography component={'li'}>
-              <span>At 2x:- </span>
-              {secondToMinutes(calculateddTime / 2)}
+              <span>2x  </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 2)}
             </Typography>
           </Box>
         </Box>
@@ -74,26 +73,28 @@ const PlaylistTime = () => {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    mainContainer:{
-      padding:theme.spacing(4)
+    mainContainer: {
+      padding: theme.spacing(4),
     },
     listStyle: {
+      listStyle: 'none',
       '& li>span': {
-        width: '75px',
+        width: theme.spacing(6),
         display: 'inline-block',
+        color: theme.palette.text.secondary
       },
     },
-    oneLineDataContainer:{
-      display:'flex',
-      alignItems:'center',
-      '& span:first-child ':{
-        width:'100px',
-        display:'inline-block',
-        textAlign:'right',
-        marginRight:'10px',
-        whiteSpace:'nowrap'
-      }
-    }
+    oneLineDataContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      '& span:first-child ': {
+        width: '100px',
+        display: 'inline-block',
+        textAlign: 'right',
+        marginRight: '10px',
+        whiteSpace: 'nowrap',
+      },
+    },
   })
 )
 

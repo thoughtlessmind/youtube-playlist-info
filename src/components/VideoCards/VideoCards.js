@@ -46,9 +46,20 @@ const VideoCards = (props) => {
       {/* <Grid item md={1} xs={1}>
         <Typography variant="body2">{index}</Typography>
       </Grid> */}
-      <Grid item xs={3} md={3} style={{ maxWidth: '300px', display:'flex', alignItems:'center' }}>
+      <Grid
+        item
+        xs={4}
+        md={3}
+        style={{ maxWidth: '300px', display: 'flex', alignItems: 'center' }}
+      >
         <Box className={classes.imageWrapper}>
-          <Typography component="span" variant="body2" className={`${classes.imageOverlay} ${classes.imageOverlayIndex}`}>{index}</Typography>
+          <Typography
+            component="span"
+            variant="body2"
+            className={`${classes.imageOverlay} ${classes.imageOverlayIndex}`}
+          >
+            {index}
+          </Typography>
           <img width="100%" height="auto" src={thumbnail} />
           <Typography
             component="span"
@@ -59,7 +70,7 @@ const VideoCards = (props) => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item md={9} xs={8}>
         <Typography variant={'h6'} className={classes.videoTitle}>
           {title}
         </Typography>
