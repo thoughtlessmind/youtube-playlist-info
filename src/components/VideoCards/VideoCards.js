@@ -50,7 +50,7 @@ const VideoCards = (props) => {
         item
         xs={4}
         md={3}
-        style={{ maxWidth: '300px', display: 'flex', alignItems: 'center' }}
+        style={{ maxWidth: '200px', display: 'flex', alignItems: 'center' }}
       >
         <Box className={classes.imageWrapper}>
           <Typography
@@ -76,7 +76,7 @@ const VideoCards = (props) => {
         </Typography>
         <Typography
           variant="caption"
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', marginTop:  '8px' }}
         >
           <Moment fromNow>{publishedAt}</Moment>
         </Typography>
@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) =>
       borderRadius: theme.shape.borderRadius,
       position: 'relative',
       marginTop: '8px',
+      borderBottom: '1px solid #d8d6d6b8',
       '&:hover': {
         backgroundColor: '#e5e5e5',
         '& $openIcon': {
@@ -143,15 +144,22 @@ const useStyles = makeStyles((theme) =>
       // borderBottomLeftRadius: theme.shape.borderRadius,
       // borderTopLeftRadius: theme.shape.borderRadius,
     },
+    videoTitle:{
+      display:'-webkit-box',
+      WebkitLineClamp:'2',
+      WebkitBoxOrient:'vertical',
+      overflow:'hidden'
+    },
     statsContainer: {
       display: 'flex',
       alignItems: 'center',
+      marginTop: theme.spacing(0.5),
       '& > span': {
         display: 'flex',
         alignItems: 'center',
-        marginRight: theme.spacing(4),
+        marginRight: theme.spacing(3),
         '& > svg': {
-          marginRight: theme.spacing(1),
+          marginRight: theme.spacing(0.5),
           fontSize: '16px',
           color: 'gray',
         },
@@ -166,12 +174,12 @@ const useStyles = makeStyles((theme) =>
     },
     [theme.breakpoints.down('sm')]: {
       videoTitle: {
-        fontSize: '1.2rem',
+        fontSize: '0.8rem',
       },
     },
     [theme.breakpoints.down('xs')]: {
       videoTitle: {
-        fontSize: '0.9rem',
+        fontSize: '0.8rem',
       },
     },
   })
