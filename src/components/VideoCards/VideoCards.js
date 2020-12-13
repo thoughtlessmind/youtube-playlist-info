@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) =>
       position: 'relative',
       marginTop: '8px',
       '&:hover': {
-        backgroundColor: 'rgb(70 70 70 / 12%)',
+        backgroundColor: '#e5e5e5',
         '& $openIcon': {
           transform: 'scale(1)',
         },
@@ -115,9 +115,9 @@ const useStyles = makeStyles((theme) =>
       width: 'fit-content',
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      '& > img':     {
+      '& > img': {
         borderRadius: theme.shape.borderRadius,
-      }
+      },
     },
     imageOverlay: {
       position: 'absolute',

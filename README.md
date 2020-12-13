@@ -11,7 +11,6 @@ It also shows the videos of the playlist and user can click the video and redire
 - [Material UI](https://material-ui.com/) is used for UI components, stylings and theming
 - [YouTube API](https://developers.google.com/youtube/v3) service for fetching data
 - Hosted on [Netlify](https://www.netlify.com/)
-- 
 
 ##### Steps to run this repo on local
 1. Clone this repo and run npm install.
