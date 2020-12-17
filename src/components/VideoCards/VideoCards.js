@@ -76,9 +76,11 @@ const VideoCards = (props) => {
         </Typography>
         <Typography
           variant="caption"
-          style={{ display: 'flex', alignItems: 'center', marginTop:  '8px' }}
+          style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}
         >
-          <Moment fromNow>{publishedAt}</Moment>
+          <Moment withTitle fromNow>
+            {publishedAt}
+          </Moment>
         </Typography>
         <Box className={classes.statsContainer}>
           <Typography variant="caption">

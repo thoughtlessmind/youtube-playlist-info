@@ -12,7 +12,7 @@ import {
   MenuItem,
 } from '@material-ui/core'
 import SwapVertIcon from '@material-ui/icons/SwapVert'
-import { getProperty } from 'utils'
+import { getProperty, parseISODuration } from 'utils'
 import VideoCards from 'components/VideoCards/VideoCards'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 
@@ -24,13 +24,34 @@ const PlaylistVideosNew = () => {
 
   const handleSortChange = (e) => {
     setSortValue(e.target.value)
-    setAllVideos(prev => sortVideos(prev))
-    console.log(sortVideos(allVideos))
+    setAllVideos(prev => sortVideos(prev, e.target.value))
+    // console.log(sortVideos(allVideos))
   }
 
-  const sortVideos = (videoData) => {
+
+  const sortVideos = (videoData, sortBy) => {
     const data = [].concat(videoData).sort((a,b)=>(parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount )? 1 : -1))
-    return data
+    let sortedData = [...videoData]
+    if(sortBy === 0) {
+      sortedData.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt);
+      });
+    } else if(sortBy === 1){
+      sortedData.sort((a,b)=>(parseISODuration(a.contentDetails.duration) < parseISODuration(b.contentDetails.duration )? 1 : -1))
+    }else if(sortBy ===2){
+      sortedData.sort((a,b)=>(parseInt(a.statistics.likeCount) < parseInt(b.statistics.likeCount )? 1 : -1))
+    } else if(sortBy === 3){
+      sortedData.sort((a,b)=>(parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount )? 1 : -1))
+    } else {
+      sortedData.length = 0
+      sortedData = getProperty(videosSearchData, '.items', [])
+    }
+    console.clear()
+    console.log({videoData, sortBy})
+    console.log({sortedData})
+    return sortedData
   }
 
   useEffect(() => {
@@ -44,13 +65,14 @@ const PlaylistVideosNew = () => {
       <Box>
       <Box className={classes.headerContainer}>
         <Typography variant="h5">Videos</Typography>
-        <FormControl className={classes.sortSelect} variant="outlined" >
-          <InputLabel>Sort</InputLabel>
-          <Select onChange={handleSortChange} value={sortValue} label={"Sort"} iconComponent={SwapVertIcon}>
+        <FormControl  className={classes.sortSelect}  variant="outlined" >
+          <InputLabel classes={{outlined:classes.sortInputLabelStyle}}>Sort</InputLabel>
+          <Select classes={{outlined:classes.inputClass}} onChange={handleSortChange}  value={sortValue} label={"Sort"} iconComponent={<SwapVertIcon/>}>
             <MenuItem value={0}>Uploaded Time</MenuItem>
-            <MenuItem value={1}>Play Time</MenuItem>
-            <MenuItem value={2}>Likes</MenuItem>
-            <MenuItem value={4}>Views</MenuItem>
+            <MenuItem value={1}>Video Length</MenuItem>
+            <MenuItem value={2}>Most Liked</MenuItem>
+            <MenuItem value={3}>Most Viewed</MenuItem>
+            <MenuItem value={4}>Default</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -98,7 +120,13 @@ const useStyles = makeStyles((theme) =>
       overflowX: 'hidden',
     },
     sortSelect:{
-      width:'100px'
+      width:'200px'
+    },
+    inputClass:{
+      padding:'12px'
+    },
+    sortInputLabelStyle:{
+      transform: 'translate(15px, 14px) scale(1)'
     }
   })
 )
