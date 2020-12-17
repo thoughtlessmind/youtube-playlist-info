@@ -17,7 +17,12 @@ const Appbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography className={classes.appNameStyle} variant="h1">
+        <Typography
+          component={'a'}
+          href="/"
+          className={classes.appNameStyle}
+          variant="h1"
+        >
           {AppName}
         </Typography>
       </Toolbar>
@@ -31,6 +36,8 @@ const useStyles = makeStyles(() =>
       fontSize: '1.3rem',
       wordSpacing: '1.5px',
       letterSpacing: '0.3px',
+      textDecoration: 'none',
+      color: '#fff',
     },
   })
 )

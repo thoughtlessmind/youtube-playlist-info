@@ -46,9 +46,20 @@ const VideoCards = (props) => {
       {/* <Grid item md={1} xs={1}>
         <Typography variant="body2">{index}</Typography>
       </Grid> */}
-      <Grid item xs={3} md={3} style={{ maxWidth: '300px', display:'flex', alignItems:'center' }}>
+      <Grid
+        item
+        xs={4}
+        md={3}
+        style={{ maxWidth: '200px', display: 'flex', alignItems: 'center' }}
+      >
         <Box className={classes.imageWrapper}>
-          <Typography component="span" variant="body2" className={`${classes.imageOverlay} ${classes.imageOverlayIndex}`}>{index}</Typography>
+          <Typography
+            component="span"
+            variant="body2"
+            className={`${classes.imageOverlay} ${classes.imageOverlayIndex}`}
+          >
+            {index}
+          </Typography>
           <img width="100%" height="auto" src={thumbnail} />
           <Typography
             component="span"
@@ -59,15 +70,17 @@ const VideoCards = (props) => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item md={9} xs={8}>
         <Typography variant={'h6'} className={classes.videoTitle}>
           {title}
         </Typography>
         <Typography
           variant="caption"
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}
         >
-          <Moment fromNow>{publishedAt}</Moment>
+          <Moment withTitle fromNow>
+            {publishedAt}
+          </Moment>
         </Typography>
         <Box className={classes.statsContainer}>
           <Typography variant="caption">
@@ -93,8 +106,9 @@ const useStyles = makeStyles((theme) =>
       borderRadius: theme.shape.borderRadius,
       position: 'relative',
       marginTop: '8px',
+      borderBottom: '1px solid #d8d6d6b8',
       '&:hover': {
-        backgroundColor: 'rgb(70 70 70 / 12%)',
+        backgroundColor: '#e5e5e5',
         '& $openIcon': {
           transform: 'scale(1)',
         },
@@ -104,9 +118,9 @@ const useStyles = makeStyles((theme) =>
       width: 'fit-content',
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      '& > img':     {
+      '& > img': {
         borderRadius: theme.shape.borderRadius,
-      }
+      },
     },
     imageOverlay: {
       position: 'absolute',
@@ -132,15 +146,22 @@ const useStyles = makeStyles((theme) =>
       // borderBottomLeftRadius: theme.shape.borderRadius,
       // borderTopLeftRadius: theme.shape.borderRadius,
     },
+    videoTitle:{
+      display:'-webkit-box',
+      WebkitLineClamp:'2',
+      WebkitBoxOrient:'vertical',
+      overflow:'hidden'
+    },
     statsContainer: {
       display: 'flex',
       alignItems: 'center',
+      marginTop: theme.spacing(0.5),
       '& > span': {
         display: 'flex',
         alignItems: 'center',
-        marginRight: theme.spacing(4),
+        marginRight: theme.spacing(3),
         '& > svg': {
-          marginRight: theme.spacing(1),
+          marginRight: theme.spacing(0.5),
           fontSize: '16px',
           color: 'gray',
         },
@@ -155,12 +176,12 @@ const useStyles = makeStyles((theme) =>
     },
     [theme.breakpoints.down('sm')]: {
       videoTitle: {
-        fontSize: '1.2rem',
+        fontSize: '0.8rem',
       },
     },
     [theme.breakpoints.down('xs')]: {
       videoTitle: {
-        fontSize: '0.9rem',
+        fontSize: '0.8rem',
       },
     },
   })
