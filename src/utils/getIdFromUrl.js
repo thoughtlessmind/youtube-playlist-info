@@ -10,7 +10,10 @@ export const getIdFromUrl = (userInput) => {
   // } else return userInput
 
   if (userInput.includes('youtube.com')) {
-    const queryParams = userInput.split('?')[1].split('=')
-    return queryParams[queryParams.indexOf('list') + 1]
+    // const queryParams = userInput.split('?')[1].split('=')
+    // return queryParams[queryParams.indexOf('list') + 1]
+    const url = new URL(userInput)
+    const playlistId = url.searchParams.get('list')
+    return playlistId
   } else return userInput
 }
