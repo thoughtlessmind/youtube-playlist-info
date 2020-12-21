@@ -14,10 +14,11 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { abbrNumber, parseISODuration, secondToMinutes } from 'utils'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
+import clsx from 'clsx'
 
 const VideoCards = (props) => {
   const { index, videoData } = props
-  const { playlistId } = useContext(globalStore)
+  const { playlistId, playingVideo } = useContext(globalStore)
   const { dispatch } = useContext(globalStore)
 
   const classes = useStyles()
@@ -37,7 +38,10 @@ const VideoCards = (props) => {
     <Grid
       container
       spacing={2}
-      className={classes.cardContainer}
+      className={clsx({
+        [classes.cardContainer]: true,
+        active: playingVideo.id === videoData.id,
+      })}
       // onClick={openVideoLink}
       onClick={handlePlayVideo}
     >
@@ -97,7 +101,7 @@ const VideoCards = (props) => {
           </Typography>
         </Box>
       </Grid>
-      <OpenInNewIcon className={classes.openIcon} />
+      <OpenInNewIcon onClick={openVideoLink} className={classes.openIcon} />
     </Grid>
   )
 }
@@ -116,6 +120,10 @@ const useStyles = makeStyles((theme) =>
         '& $openIcon': {
           transform: 'scale(1)',
         },
+      },
+      '&.active': {
+        backgroundColor: '#d0d0d0',
+        transition: 'background-color 0.2s',
       },
     },
     imageWrapper: {

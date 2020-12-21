@@ -9,17 +9,11 @@ import {
 } from 'components'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import clsx from 'clsx'
-// import PlaylistVideos from 'components/PlaylistVideos/PlaylistVideos'
+
 
 const PageContainer = () => {
   const classes = useStyles()
   const { playingVideo } = useContext(globalStore)
-
-  useEffect(()=>{
-    console.log('playingVideo---0-bbbbbbbbbbbbbbbbbbbbbbbbbbbbb--------',playingVideo)
-  },[playingVideo])
-
-  console.log('///////////---------',Object.keys(playingVideo).length >0)
 
   return (
     <Box className={classes.mainContainer}>
@@ -32,14 +26,16 @@ const PageContainer = () => {
           <PlaylistSummary />
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={Object.keys(playingVideo).length >0  ? 6 : 12}>
+      <Grid container spacing={2} style={{ marginTop: '8px' }}>
+        <Grid item xs={Object.keys(playingVideo).length > 0 ? 6 : 12}>
           <PlaylistVideosNew />
         </Grid>
         <Grid
           item
           xs={6}
-          className={clsx({ [classes.hide]: Object.keys(playingVideo).length ===0 })}
+          className={clsx({
+            [classes.hide]: Object.keys(playingVideo).length === 0,
+          })}
         >
           <VideoPlayer videoData={playingVideo} />
         </Grid>

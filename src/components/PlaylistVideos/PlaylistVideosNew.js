@@ -62,7 +62,6 @@ const PlaylistVideosNew = () => {
 
   return (
     <Paper className={classes.mainContainer}>
-      <Box>
         <Box className={classes.headerContainer}>
           <Typography variant="h5">Videos</Typography>
           <FormControl className={classes.sortSelect} variant="outlined">
@@ -95,7 +94,6 @@ const PlaylistVideosNew = () => {
             />
           ))}
         </Box>
-      </Box>
     </Paper>
   )
 }
@@ -104,6 +102,8 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(2),
+      backgroundColor: theme.custom.lightTransparentBackground,
+
     },
     headerContainer: {
       marginBottom: theme.spacing(1),

@@ -48,6 +48,7 @@ const PlaylistTime = () => {
           <Typography variant="h5"  component={"span"}>{getProperty(playlistSearchData, '.pageInfo.totalResults', '0')}</Typography>
         </Box>
         <Box>
+          {/* 
           <Box component={'ul'} className={classes.listStyle}>
             <Typography component={'li'}>
               <span>1.25x </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 1.25)}
@@ -61,7 +62,8 @@ const PlaylistTime = () => {
             <Typography component={'li'}>
               <span>2x  </span> - &nbsp; &nbsp;{secondToMinutes(calculateddTime / 2)}
             </Typography>
-          </Box>
+          </Box> 
+          */}
         </Box>
       </Box>
       {/* {getProperty(playlistSearchData, '.items', []).map((item) => (
@@ -75,13 +77,14 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(4),
+      backgroundColor: theme.custom.lightTransparentBackground,
     },
     listStyle: {
       listStyle: 'none',
       '& li>span': {
         width: theme.spacing(6),
         display: 'inline-block',
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
       },
     },
     oneLineDataContainer: {

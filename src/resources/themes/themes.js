@@ -8,10 +8,16 @@ const theme = createMuiTheme({
       fontSize: '1rem',
       lineHeight: 1.3,
     },
+    body2:  {
+      color:  '#6f6f6f',
+    },
     caption: {
       color: 'rgba(9,30,66,.84)',
       fontWeight: '500',
     },
+  },
+  custom: {
+    lightTransparentBackground: '#ffffffb8',
   },
 })
 
