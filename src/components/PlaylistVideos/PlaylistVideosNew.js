@@ -115,10 +115,10 @@ const useStyles = makeStyles((theme) =>
       },
     },
     videosConainer: {
-      maxHeight: '80vh',
+      maxHeight: '500px',
       overflowY: 'scroll',
       overflowX: 'hidden',
-      height: '600px',
+      // height: '600px',
     },
     sortSelect: {
       width: '200px',

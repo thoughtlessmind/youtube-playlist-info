@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, makeStyles, createStyles, Grid } from '@material-ui/core'
 import {
   PlaylistSummary,
@@ -9,24 +9,53 @@ import {
 } from 'components'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import clsx from 'clsx'
+import Channel_Info from 'components/Channel_Info/Channel_Info'
 
 
 const PageContainer = () => {
   const classes = useStyles()
-  const { playingVideo } = useContext(globalStore)
+  const { playingVideo, videosSearchData, channelInfo } = useContext(globalStore)
+  const [showVideoList , setShowVideosList ] = useState(false)
+  const [showContent, setShowContent] = useState({
+    videosList: false,
+    channelInfo:false,
+    palylistTime:false
+  })
+
+  useEffect(()=>{
+    console.log('iiiiiiiiiiiiiiiii---',Object.keys(videosSearchData).length === 0)
+    setShowVideosList(Object.keys(videosSearchData).length > 0)
+    
+  },[videosSearchData])
+
+  useEffect(()=>{
+    setShowContent(data=>({...data, channelInfo: Object.keys(channelInfo).length > 0}))
+  },[channelInfo])
 
   return (
     <Box className={classes.mainContainer}>
       <SearchBar />
-      <Grid spacing={2} direction="row" container>
+      <Grid className={clsx({
+          [classes.visibleContent]:  showContent.channelInfo,
+          [classes.hideContent]:  !showContent.channelInfo,
+        })} spacing={2} direction="row" container>
         <Grid item xs={12} sm={6}>
           <PlaylistTime />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <PlaylistSummary />
+          {/* <PlaylistSummary /> */}
+          <Channel_Info />
         </Grid>
       </Grid>
-      <Grid container spacing={2} style={{ marginTop: '8px' }}>
+      <Grid
+        className={clsx({
+          [classes.slideUp]:  showVideoList,
+          [classes.hidden]:  !showVideoList,
+        })}
+        container
+        spacing={2}
+        style={{ marginTop: '8px' }}
+      >
         <Grid item xs={Object.keys(playingVideo).length > 0 ? 6 : 12}>
           <PlaylistVideosNew />
         </Grid>
@@ -67,6 +96,26 @@ const useStyles = makeStyles((theme) =>
     hide: {
       display: 'none',
     },
+    slideUp: {
+      overflowY: 'hidden',
+      maxHeight: '800px',
+      transitionProperty: 'all',
+      transitionDuration: '5s',
+      transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
+    },
+    hidden:{
+      maxHeight:0,
+      overflow:'hidden',
+      transitionProperty: 'all',
+      transitionDuration: '5s',
+      transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
+    },
+    visibleContent:{
+      display:'flex'
+    },
+    hideContent:{
+      display:'none'
+    }
   })
 )
 

@@ -3,18 +3,16 @@ import {
   Box,
   createStyles,
   FormControl,
-  Input,
   InputAdornment,
   InputLabel,
   makeStyles,
   OutlinedInput,
-  TextField,
 } from '@material-ui/core'
-import LinkIcon from '@material-ui/icons/Link'
 import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
 import { getIdFromUrl } from 'utils'
+import { getChannelInfo } from 'api/api'
 
 
 const SearchBar = () => {
@@ -36,10 +34,14 @@ const SearchBar = () => {
         getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
           dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
         )
+        getChannelInfo(res.data.items[0].snippet.channelId).then((res) => {
+          console.log('channelifo', res)
+          dispatch({ type: 'CHANNEL_INFO', payload: res.data })
+        })
       })
       .then((res) => setInitiatedSearch(true))
       .then(() => setLoading(false))
-      .catch((err) =>   setLoading(false))
+      .catch((err) => setLoading(false))
   }
 
   const sortVideosId = (videosData) => {
@@ -59,13 +61,12 @@ const SearchBar = () => {
     <Box className={classes.formContainerStyles}>
       <form className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
         <FormControl>
-          <InputLabel
-            classes={{ formControl: classes.inputLabelStyle }}
-          >
+          <InputLabel classes={{ formControl: classes.inputLabelStyle }}>
             Playlist URL
           </InputLabel>
           <OutlinedInput
             inputRef={inputRef}
+            classes={{ input: classes.outlinedInputStyle }}
             labelWidth={100}
             required
             endAdornment={
@@ -96,23 +97,23 @@ const useStyles = makeStyles((theme) =>
       justifyContent: 'center',
       transition: 'height 0.5s ease-out',
     },
-    formStyles:{
-      width:'60%',
-      minWidth:'350px',
-      '& > div:first-child':{
-        width:'100%',
-        maxWidth:'800px',
-        minWidth:'350px',
-      }
+    formStyles: {
+      width: '60%',
+      minWidth: '350px',
+      backdropFilter: 'blur(26px)',
+      '& > div:first-child': {
+        width: '100%',
+        maxWidth: '800px',
+        minWidth: '350px',
+      },
     },
-    inputLabelStyle:{
-        top:'-7px',
-        left:'21px'
+    inputLabelStyle: {
+      top: '-7px',
+      left: '21px',
     },
-    outlinedInputStyle:{
-      padding:'10px 20px',
-      height:'1.5em'
-    }
+    outlinedInputStyle: {
+      color:   '#000',
+    },
   })
 )
 

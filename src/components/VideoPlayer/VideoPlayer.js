@@ -44,16 +44,16 @@ const VideoPlayer = (props) => {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    mainContainer:{
+    mainContainer: {
       backgroundColor: theme.custom.lightTransparentBackground,
-
+      height: '100%',
     },
     videoDetailsContainer: {
       marginTop: theme.spacing(2),
       '&>h4': {
-        fontSize: '2rem',
+        fontSize: '1.7rem',
         marginBottom: theme.spacing(1),
-        borderBottom:'1px solid #ddd'
+        borderBottom: '1px solid #ddd',
       },
       '&>p': {
         whiteSpace: 'pre-wrap',
