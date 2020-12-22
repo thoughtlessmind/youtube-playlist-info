@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme) =>
       left: '21px',
     },
     outlinedInputStyle: {
-      color:   '#000',
+      // color:   '#000',
     },
   })
 )

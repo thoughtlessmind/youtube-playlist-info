@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(4),
-      backgroundColor: theme.custom.lightTransparentBackground,
+      // backgroundColor: theme.custom.lightTransparentBackground,
     },
     listStyle: {
       listStyle: 'none',
@@ -138,9 +138,9 @@ const useStyles = makeStyles((theme) =>
         whiteSpace: 'nowrap',
       },
     },
-    secondaryText:{
-      fontSize:'18px'
-    }
+    secondaryText: {
+      fontSize: '18px',
+    },
   })
 )
 

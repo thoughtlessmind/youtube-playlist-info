@@ -102,8 +102,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(2),
-      backgroundColor: theme.custom.lightTransparentBackground,
-
+      // backgroundColor: theme.custom.lightTransparentBackground,
     },
     headerContainer: {
       marginBottom: theme.spacing(1),

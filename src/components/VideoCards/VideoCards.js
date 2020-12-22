@@ -116,13 +116,13 @@ const useStyles = makeStyles((theme) =>
       marginTop: '8px',
       borderBottom: '1px solid #d8d6d6b8',
       '&:hover': {
-        backgroundColor: '#e5e5e5',
+        backgroundColor: theme.palette.action.hover,
         '& $openIcon': {
           transform: 'scale(1)',
         },
       },
       '&.active': {
-        backgroundColor: '#d0d0d0',
+        backgroundColor: theme.palette.action.selected,
         transition: 'background-color 0.2s',
       },
     },

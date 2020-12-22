@@ -3,6 +3,7 @@ const UPDATE_PLAYLIST_SEARCH = 'UPDATE_PLAYLIST_SEARCH'
 const UPDATE_VIDEO_SEARCH = 'UPDATE_VIDEO_SEARCH'
 const PLAY_VIDEO = 'PLAY_VIDEO'
 const CHANNEL_INFO = 'CHANNEL_INFO'
+const CHANGE_THEME = 'CHANGE_THEME'
 
 
 export const globalStore = React.createContext({})
@@ -16,6 +17,7 @@ const initialState = {
   dispatch: () => {},
   playingVideo: {},
   channelInfo: {},
+  activeTheme: 'dark',
 }
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +44,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, playingVideo: action.payload }
     case CHANNEL_INFO:
       return { ...state, channelInfo: action.payload }
+    case CHANGE_THEME:
+      return { ...state, activeTheme: action.payload }
     default:
       return state
   }
