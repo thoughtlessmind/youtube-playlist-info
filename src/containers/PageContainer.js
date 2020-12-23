@@ -56,12 +56,13 @@ const PageContainer = () => {
         spacing={2}
         style={{ marginTop: '8px' }}
       >
-        <Grid item xs={Object.keys(playingVideo).length > 0 ? 6 : 12}>
+        <Grid item md={Object.keys(playingVideo).length > 0 ? 6 : 12} xs={12}>
           <PlaylistVideosNew />
         </Grid>
         <Grid
           item
-          xs={6}
+          xs={0}
+          md={6}
           className={clsx({
             [classes.hide]: Object.keys(playingVideo).length === 0,
           })}

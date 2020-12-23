@@ -99,12 +99,12 @@ const useStyles = makeStyles((theme) =>
     },
     formStyles: {
       width: '60%',
-      minWidth: '350px',
+      minWidth: '290px',
       backdropFilter: 'blur(26px)',
       '& > div:first-child': {
         width: '100%',
         maxWidth: '800px',
-        minWidth: '350px',
+        minWidth: '290px',
       },
     },
     inputLabelStyle: {

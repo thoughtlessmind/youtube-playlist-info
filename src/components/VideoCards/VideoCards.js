@@ -31,7 +31,9 @@ const VideoCards = (props) => {
   }
 
   const handlePlayVideo = () => {
-    dispatch({ type: 'PLAY_VIDEO', payload: videoData })
+    window.innerWidth < 960
+      ? openVideoLink()
+      : dispatch({ type: 'PLAY_VIDEO', payload: videoData })
   }
 
   return (
