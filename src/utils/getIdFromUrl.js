@@ -1,4 +1,4 @@
-const urlRegex =  /https:\/\/(www\.)?youtube.+list=[\w].{12,}/i
+const urlRegex =  /https:\/\/(www\.)?youtube.+list=[\w].{6,}/i
 
 /**
  * Parse the playlist id from the URL string (User input )
