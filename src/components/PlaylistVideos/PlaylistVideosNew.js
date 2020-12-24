@@ -62,40 +62,38 @@ const PlaylistVideosNew = () => {
 
   return (
     <Paper className={classes.mainContainer}>
-      <Box>
-      <Box className={classes.headerContainer}>
-        <Typography variant="h5">Videos</Typography>
-        <FormControl  className={classes.sortSelect}  variant="outlined" >
-          <InputLabel classes={{outlined:classes.sortInputLabelStyle}}>Sort</InputLabel>
-          <Select classes={{outlined:classes.inputClass}} onChange={handleSortChange}  value={sortValue} label={"Sort"} iconComponent={<SwapVertIcon/>}>
-            <MenuItem value={0}>Uploaded Time</MenuItem>
-            <MenuItem value={1}>Video Length</MenuItem>
-            <MenuItem value={2}>Most Liked</MenuItem>
-            <MenuItem value={3}>Most Viewed</MenuItem>
-            <MenuItem value={4}>Default</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Divider />
-      <Box className={classes.videosConainer}>
-        
-        {/* {getProperty(allVideos, '.items', []).map((item, index) => ( */}
-        {allVideos.map((item, index) => (
-          <VideoCards
-            key={item.id}
-            videoId={item.id}
-            index={index + 1}
-            title={item.snippet.title}
-            publishedAt={item.snippet.publishedAt}
-            thumbnail={item.snippet.thumbnails.medium.url}
-            viewCount={item.statistics.viewCount}
-            likeCount={item.statistics.likeCount}
-            listId={playlistId}
-            duration={item.contentDetails.duration}
-          />
-        ))}
-      </Box>
-      </Box>
+        <Box className={classes.headerContainer}>
+          <Typography variant="h5">Videos</Typography>
+          <FormControl className={classes.sortSelect} variant="outlined">
+            <InputLabel classes={{ outlined: classes.sortInputLabelStyle }}>
+              Sort
+            </InputLabel>
+            <Select
+              classes={{ outlined: classes.inputClass }}
+              onChange={handleSortChange}
+              value={sortValue}
+              label={'Sort'}
+              iconComponent={<SwapVertIcon />}
+            >
+              <MenuItem value={0}>Uploaded Time</MenuItem>
+              <MenuItem value={1}>Video Length</MenuItem>
+              <MenuItem value={2}>Most Liked</MenuItem>
+              <MenuItem value={3}>Most Viewed</MenuItem>
+              <MenuItem value={4}>Default</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <Divider />
+        <Box className={classes.videosConainer}>
+          {/* {getProperty(allVideos, '.items', []).map((item, index) => ( */}
+          {allVideos.map((item, index) => (
+            <VideoCards
+              key={item.id}
+              index={index + 1}
+              videoData={item}
+            />
+          ))}
+        </Box>
     </Paper>
   )
 }
@@ -104,6 +102,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     mainContainer: {
       padding: theme.spacing(2),
+      // backgroundColor: theme.custom.lightTransparentBackground,
     },
     headerContainer: {
       marginBottom: theme.spacing(1),
@@ -115,19 +114,20 @@ const useStyles = makeStyles((theme) =>
       },
     },
     videosConainer: {
-      maxHeight: '80vh',
+      maxHeight: '500px',
       overflowY: 'scroll',
       overflowX: 'hidden',
+      // height: '600px',
     },
-    sortSelect:{
-      width:'200px'
+    sortSelect: {
+      width: '200px',
     },
-    inputClass:{
-      padding:'12px'
+    inputClass: {
+      padding: '12px',
     },
-    sortInputLabelStyle:{
-      transform: 'translate(15px, 14px) scale(1)'
-    }
+    sortInputLabelStyle: {
+      transform: 'translate(15px, 14px) scale(1)',
+    },
   })
 )
 

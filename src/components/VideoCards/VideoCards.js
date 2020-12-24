@@ -14,34 +14,38 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { abbrNumber, parseISODuration, secondToMinutes } from 'utils'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
+import clsx from 'clsx'
 
 const VideoCards = (props) => {
-  const {
-    index,
-    thumbnail,
-    title,
-    publishedAt,
-    likeCount,
-    viewCount,
-    videoId,
-    duration,
-  } = props
-  const { playlistId } = useContext(globalStore)
+  const { index, videoData } = props
+  const { playlistId, playingVideo } = useContext(globalStore)
+  const { dispatch } = useContext(globalStore)
+
   const classes = useStyles()
 
   const openVideoLink = () => {
     window.open(
-      `https://youtube.com/watch?v=${videoId}&list=${playlistId}`,
+      `https://youtube.com/watch?v=${videoData.id}&list=${playlistId}`,
       '_blank'
     )
+  }
+
+  const handlePlayVideo = () => {
+    window.innerWidth < 960
+      ? openVideoLink()
+      : dispatch({ type: 'PLAY_VIDEO', payload: videoData })
   }
 
   return (
     <Grid
       container
       spacing={2}
-      className={classes.cardContainer}
-      onClick={openVideoLink}
+      className={clsx({
+        [classes.cardContainer]: true,
+        active: playingVideo.id === videoData.id,
+      })}
+      // onClick={openVideoLink}
+      onClick={handlePlayVideo}
     >
       {/* <Grid item md={1} xs={1}>
         <Typography variant="body2">{index}</Typography>
@@ -60,40 +64,46 @@ const VideoCards = (props) => {
           >
             {index}
           </Typography>
-          <img width="100%" height="auto" src={thumbnail} />
+          <img
+            width="100%"
+            height="auto"
+            src={videoData.snippet.thumbnails.medium.url}
+          />
           <Typography
             component="span"
             variant="body2"
             className={`${classes.imageOverlay} ${classes.imageOverlayTime}`}
           >
-            {secondToMinutes(parseISODuration(duration))}
+            {secondToMinutes(
+              parseISODuration(videoData.contentDetails.duration)
+            )}
           </Typography>
         </Box>
       </Grid>
       <Grid item md={9} xs={8}>
         <Typography variant={'h6'} className={classes.videoTitle}>
-          {title}
+          {videoData.snippet.title}
         </Typography>
         <Typography
           variant="caption"
           style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}
         >
           <Moment withTitle fromNow>
-            {publishedAt}
+            {videoData.snippet.publishedAt}
           </Moment>
         </Typography>
         <Box className={classes.statsContainer}>
           <Typography variant="caption">
             <VisibilityIcon />
-            {abbrNumber(viewCount, 0)}
+            {abbrNumber(videoData.statistics.viewCount, 0)}
           </Typography>
           <Typography variant="caption">
             <ThumbUpAltIcon />
-            {abbrNumber(likeCount, 1)}
+            {abbrNumber(videoData.statistics.likeCount, 1)}
           </Typography>
         </Box>
       </Grid>
-      <OpenInNewIcon className={classes.openIcon} />
+      <OpenInNewIcon onClick={openVideoLink} className={classes.openIcon} />
     </Grid>
   )
 }
@@ -108,10 +118,14 @@ const useStyles = makeStyles((theme) =>
       marginTop: '8px',
       borderBottom: '1px solid #d8d6d6b8',
       '&:hover': {
-        backgroundColor: '#e5e5e5',
+        backgroundColor: theme.palette.action.hover,
         '& $openIcon': {
           transform: 'scale(1)',
         },
+      },
+      '&.active': {
+        backgroundColor: theme.palette.action.selected,
+        transition: 'background-color 0.2s',
       },
     },
     imageWrapper: {
@@ -146,11 +160,11 @@ const useStyles = makeStyles((theme) =>
       // borderBottomLeftRadius: theme.shape.borderRadius,
       // borderTopLeftRadius: theme.shape.borderRadius,
     },
-    videoTitle:{
-      display:'-webkit-box',
-      WebkitLineClamp:'2',
-      WebkitBoxOrient:'vertical',
-      overflow:'hidden'
+    videoTitle: {
+      display: '-webkit-box',
+      WebkitLineClamp: '2',
+      WebkitBoxOrient: 'vertical',
+      overflow: 'hidden',
     },
     statsContainer: {
       display: 'flex',

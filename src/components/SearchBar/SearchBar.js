@@ -3,43 +3,60 @@ import {
   Box,
   createStyles,
   FormControl,
-  Input,
   InputAdornment,
   InputLabel,
   makeStyles,
   OutlinedInput,
-  TextField,
+  Snackbar,
 } from '@material-ui/core'
-import LinkIcon from '@material-ui/icons/Link'
 import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
 import { getIdFromUrl } from 'utils'
+import { getChannelInfo } from 'api/api'
+import MuiAlert from '@material-ui/lab/Alert'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 
 const SearchBar = () => {
   const { dispatch } = useContext(globalStore)
   const inputRef = React.useRef(null)
   const [initiatedSearch, setInitiatedSearch] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const classes = useStyles({ initiatedSearch })
 
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
-    setLoading(true)
-    searchPlayListApi(getIdFromUrl(inputRef.current.value))
-      .then((res) => {
-        // updateSearchData(res.data)
-        dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
-        console.log(res.data.items)
-        getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
-          dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
-        )
-      })
-      .then((res) => setInitiatedSearch(true))
-      .then(() => setLoading(false))
-      .catch((err) =>   setLoading(false))
+
+    if (getIdFromUrl(inputRef.current.value)) {
+      setLoading(true)
+      searchPlayListApi(getIdFromUrl(inputRef.current.value))
+        .then((res) => {
+          // updateSearchData(res.data)
+          dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
+          getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
+            dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
+          )
+          getChannelInfo(res.data.items[0].snippet.channelId).then((res) => {
+            dispatch({ type: 'CHANNEL_INFO', payload: res.data })
+          })
+        })
+        .then((res) => setInitiatedSearch(true))
+        .then(() => setLoading(false))
+        .catch((err) => setLoading(false))
+    } else {
+      setAlertMessage('Not a valid playlist URL')
+      return false
+    }
+  }
+
+  const alertCloseHandler = () => {
+    setAlertMessage('')
   }
 
   const sortVideosId = (videosData) => {
@@ -59,13 +76,12 @@ const SearchBar = () => {
     <Box className={classes.formContainerStyles}>
       <form className={classes.formStyles} onSubmit={urlFormSubmitHandler}>
         <FormControl>
-          <InputLabel
-            classes={{ formControl: classes.inputLabelStyle }}
-          >
+          <InputLabel classes={{ formControl: classes.inputLabelStyle }}>
             Playlist URL
           </InputLabel>
           <OutlinedInput
             inputRef={inputRef}
+            classes={{ input: classes.outlinedInputStyle }}
             labelWidth={100}
             required
             endAdornment={
@@ -83,6 +99,20 @@ const SearchBar = () => {
           />
         </FormControl>
       </form>
+
+      <Snackbar
+        open={Boolean(alertMessage)}
+        autoHideDuration={6000}
+        onClose={alertCloseHandler}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
@@ -96,23 +126,23 @@ const useStyles = makeStyles((theme) =>
       justifyContent: 'center',
       transition: 'height 0.5s ease-out',
     },
-    formStyles:{
-      width:'60%',
-      minWidth:'350px',
-      '& > div:first-child':{
-        width:'100%',
-        maxWidth:'800px',
-        minWidth:'350px',
-      }
+    formStyles: {
+      width: '60%',
+      minWidth: '290px',
+      backdropFilter: 'blur(26px)',
+      '& > div:first-child': {
+        width: '100%',
+        maxWidth: '800px',
+        minWidth: '290px',
+      },
     },
-    inputLabelStyle:{
-        top:'-7px',
-        left:'21px'
+    inputLabelStyle: {
+      top: '-7px',
+      left: '21px',
     },
-    outlinedInputStyle:{
-      padding:'10px 20px',
-      height:'1.5em'
-    }
+    outlinedInputStyle: {
+      // color:   '#000',
+    },
   })
 )
 

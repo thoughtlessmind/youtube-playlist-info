@@ -34,3 +34,16 @@ export const getDetailsByVideoId = (videoIds) => {
     },
   })
 }
+
+
+export const getChannelInfo = (channelId) => {
+  return axios({
+    method: 'GET',
+    url: `/channels`,
+    params: {
+      part: 'snippet,contentDetails,statistics',
+      id: channelId,
+      key: API_KEY,
+    },
+  })
+}
