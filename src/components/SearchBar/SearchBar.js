@@ -7,41 +7,56 @@ import {
   InputLabel,
   makeStyles,
   OutlinedInput,
+  Snackbar,
 } from '@material-ui/core'
 import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
 import { getIdFromUrl } from 'utils'
 import { getChannelInfo } from 'api/api'
+import MuiAlert from '@material-ui/lab/Alert'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 
 const SearchBar = () => {
   const { dispatch } = useContext(globalStore)
   const inputRef = React.useRef(null)
   const [initiatedSearch, setInitiatedSearch] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const classes = useStyles({ initiatedSearch })
 
 
   const urlFormSubmitHandler = (e) => {
     e.preventDefault()
-    setLoading(true)
-    searchPlayListApi(getIdFromUrl(inputRef.current.value))
-      .then((res) => {
-        // updateSearchData(res.data)
-        dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
-        console.log(res.data.items)
-        getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
-          dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
-        )
-        getChannelInfo(res.data.items[0].snippet.channelId).then((res) => {
-          console.log('channelifo', res)
-          dispatch({ type: 'CHANNEL_INFO', payload: res.data })
+
+    if (getIdFromUrl(inputRef.current.value)) {
+      setLoading(true)
+      searchPlayListApi(getIdFromUrl(inputRef.current.value))
+        .then((res) => {
+          // updateSearchData(res.data)
+          dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
+          getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
+            dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
+          )
+          getChannelInfo(res.data.items[0].snippet.channelId).then((res) => {
+            dispatch({ type: 'CHANNEL_INFO', payload: res.data })
+          })
         })
-      })
-      .then((res) => setInitiatedSearch(true))
-      .then(() => setLoading(false))
-      .catch((err) => setLoading(false))
+        .then((res) => setInitiatedSearch(true))
+        .then(() => setLoading(false))
+        .catch((err) => setLoading(false))
+    } else {
+      setAlertMessage('Not a valid playlist URL')
+      return false
+    }
+  }
+
+  const alertCloseHandler = () => {
+    setAlertMessage('')
   }
 
   const sortVideosId = (videosData) => {
@@ -84,6 +99,20 @@ const SearchBar = () => {
           />
         </FormControl>
       </form>
+
+      <Snackbar
+        open={Boolean(alertMessage)}
+        autoHideDuration={6000}
+        onClose={alertCloseHandler}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
