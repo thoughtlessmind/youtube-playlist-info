@@ -35,10 +35,15 @@ const PageContainer = () => {
   return (
     <Box className={classes.mainContainer}>
       <SearchBar />
-      <Grid className={clsx({
-          [classes.visibleContent]:  showContent.channelInfo,
+      <Grid
+        className={clsx({
+          [classes.visibleContent]: showContent.channelInfo,
           [classes.hideContent]:  !showContent.channelInfo,
-        })} spacing={2} direction="row" container>
+        })}
+        spacing={2}
+        direction="row"
+        container
+      >
         <Grid item xs={12} sm={6}>
           <PlaylistTime />
         </Grid>
@@ -49,8 +54,8 @@ const PageContainer = () => {
       </Grid>
       <Grid
         className={clsx({
-          [classes.slideUp]:  showVideoList,
-          [classes.hidden]:  !showVideoList,
+          [classes.slideUp]: showVideoList,
+          [classes.hidden]: !showVideoList,
         })}
         container
         spacing={2}
