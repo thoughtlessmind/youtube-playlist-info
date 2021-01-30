@@ -38,11 +38,11 @@ const SearchBar = () => {
       searchPlayListApi(getIdFromUrl(inputRef.current.value))
         .then((res) => {
           // updateSearchData(res.data)
-          dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res.data })
-          getDetailsByVideoId(sortVideosId(res.data.items)).then((res) =>
-            dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res.data })
+          dispatch({ type: 'UPDATE_PLAYLIST_SEARCH', payload: res })
+          getDetailsByVideoId(sortVideosId(res.items)).then((res) =>
+            dispatch({ type: 'UPDATE_VIDEO_SEARCH', payload: res })
           )
-          getChannelInfo(res.data.items[0].snippet.channelId).then((res) => {
+          getChannelInfo(res.items[0].snippet.channelId).then((res) => {
             dispatch({ type: 'CHANNEL_INFO', payload: res.data })
           })
         })
@@ -62,7 +62,7 @@ const SearchBar = () => {
   const sortVideosId = (videosData) => {
     let ids = []
     videosData.map((video) => ids.push(video.contentDetails.videoId))
-    return ids.toString()
+    return ids
   }
 
   useEffect(() => {
