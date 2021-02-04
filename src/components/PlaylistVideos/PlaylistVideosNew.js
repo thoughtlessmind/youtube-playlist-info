@@ -25,7 +25,6 @@ const PlaylistVideosNew = () => {
   const handleSortChange = (e) => {
     setSortValue(e.target.value)
     setAllVideos(prev => sortVideos(prev, e.target.value))
-    // console.log(sortVideos(allVideos))
   }
 
 
@@ -48,9 +47,7 @@ const PlaylistVideosNew = () => {
       sortedData.length = 0
       sortedData = getProperty(videosSearchData, '.items', [])
     }
-    console.clear()
-    console.log({videoData, sortBy})
-    console.log({sortedData})
+
     return sortedData
   }
 
@@ -58,7 +55,6 @@ const PlaylistVideosNew = () => {
     setAllVideos(getProperty(videosSearchData, '.items', []))
   }, [videosSearchData])
 
-  useEffect(() => {console.log('all videos-------', allVideos)},[allVideos])
 
   return (
     <Paper className={classes.mainContainer}>

@@ -18,7 +18,6 @@ const PlaylistTime = () => {
     first: '',
     last: '',
   })
-  console.log('playlistSearchData', playlistSearchData)
 
   const calculateTime = (searchData) => {
     let time = 0

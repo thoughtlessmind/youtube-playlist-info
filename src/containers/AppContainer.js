@@ -12,8 +12,7 @@ import { lightTheme, darkTheme } from 'resources/themes/themes'
 
 const AppContainer = () => {
   const {activeTheme } = useContext(globalStore)
-  const classes = useStyles({activeTheme})
-  useEffect(()=>console.log({activeTheme}),[activeTheme])
+  const classes = useStyles({ activeTheme })
 
 
   return (

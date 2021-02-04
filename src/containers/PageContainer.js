@@ -22,11 +22,9 @@ const PageContainer = () => {
     palylistTime:false
   })
 
-  useEffect(()=>{
-    console.log('iiiiiiiiiiiiiiiii---',Object.keys(videosSearchData).length === 0)
+  useEffect(() => {
     setShowVideosList(Object.keys(videosSearchData).length > 0)
-    
-  },[videosSearchData])
+  }, [videosSearchData])
 
   useEffect(()=>{
     setShowContent(data=>({...data, channelInfo: Object.keys(channelInfo).length > 0}))

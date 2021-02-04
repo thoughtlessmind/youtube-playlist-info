@@ -21,16 +21,16 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  console.log('➡-------------------- Global Store Update ----------------')
+  devConsole('➡-------------------- Global Store Update ----------------')
   // console.log('Prev State-- ', state)
-  console.log(
+  devConsole(
     '%c-------------------------------->>>>>>>>>>>>>>>>>>>>>>>',
     'color:#fff;background-color:green'
   )
-  console.log('action--- ', action.type)
-  console.log('payload--- ', action.payload)
-  console.log('state--- ', state)
-  console.log(
+  devConsole('action--- ', action.type)
+  devConsole('payload--- ', action.payload)
+  devConsole('state--- ', state)
+  devConsole(
     '%c------------------------------------------------------------------',
     'color:#fff;background-color:red'
   )
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action) => {
 export const StoreProvider = ({ children }) => {
   const [storeData, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
-    console.log('state----------', storeData)
+    devConsole('state----------', storeData)
   }, [storeData])
   return (
     <globalStore.Provider value={{ ...storeData, dispatch }}>
@@ -63,4 +63,12 @@ export const StoreProvider = ({ children }) => {
   )
 }
 
-
+/**
+ * Consoles only in development mode
+ * @param  {...any} args console arguments
+ */
+const devConsole = (...args) =>{
+  if(process.env.NODE_ENV === "development"){
+    console.log(...args)
+  }
+}

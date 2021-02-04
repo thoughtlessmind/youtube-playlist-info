@@ -8,6 +8,5 @@ export const calculateTotalViews = (data) => {
   data.map(
     (videoData) => (views = views + parseInt(videoData.statistics.viewCount))
   )
-  console.log('-----', views)
   return views
 }
