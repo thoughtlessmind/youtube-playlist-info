@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, makeStyles, createStyles, Grid } from '@material-ui/core'
+import {
+  Box,
+  makeStyles,
+  createStyles,
+  Grid,
+  Typography,
+} from '@material-ui/core'
 import {
   PlaylistSummary,
   PlaylistTime,
@@ -11,32 +17,43 @@ import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import clsx from 'clsx'
 import Channel_Info from 'components/Channel_Info/Channel_Info'
 
-
 const PageContainer = () => {
   const classes = useStyles()
-  const { playingVideo, videosSearchData, channelInfo } = useContext(globalStore)
-  const [showVideoList , setShowVideosList ] = useState(false)
+  const { playingVideo, videosSearchData, channelInfo } = useContext(
+    globalStore
+  )
+  const [showVideoList, setShowVideosList] = useState(false)
   const [showContent, setShowContent] = useState({
     videosList: false,
-    channelInfo:false,
-    palylistTime:false
+    channelInfo: false,
+    palylistTime: false,
   })
 
   useEffect(() => {
     setShowVideosList(Object.keys(videosSearchData).length > 0)
   }, [videosSearchData])
 
-  useEffect(()=>{
-    setShowContent(data=>({...data, channelInfo: Object.keys(channelInfo).length > 0}))
-  },[channelInfo])
+  useEffect(() => {
+    setShowContent((data) => ({
+      ...data,
+      channelInfo: Object.keys(channelInfo).length > 0,
+    }))
+  }, [channelInfo])
 
   return (
     <Box className={classes.mainContainer}>
       <SearchBar />
+      {!showContent.channelInfo && (
+        <>
+          <Typography style={{ color: '#9f9f9f' }} align="center">
+            Enter youtube video playlist URL
+          </Typography>
+        </>
+      )}
       <Grid
         className={clsx({
           [classes.visibleContent]: showContent.channelInfo,
-          [classes.hideContent]:  !showContent.channelInfo,
+          [classes.hideContent]: !showContent.channelInfo,
         })}
         spacing={2}
         direction="row"
@@ -46,7 +63,6 @@ const PageContainer = () => {
           <PlaylistTime />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {/* <PlaylistSummary /> */}
           <Channel_Info />
         </Grid>
       </Grid>
@@ -107,19 +123,19 @@ const useStyles = makeStyles((theme) =>
       transitionDuration: '5s',
       transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
     },
-    hidden:{
-      maxHeight:0,
-      overflow:'hidden',
+    hidden: {
+      maxHeight: 0,
+      overflow: 'hidden',
       transitionProperty: 'all',
       transitionDuration: '5s',
       transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
     },
-    visibleContent:{
-      display:'flex'
+    visibleContent: {
+      display: 'flex',
     },
-    hideContent:{
-      display:'none'
-    }
+    hideContent: {
+      display: 'none',
+    },
   })
 )
 
