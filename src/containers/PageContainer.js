@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Grid,
-  Typography,
-} from '@material-ui/core'
+import { Box, Grid, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import {
   PlaylistSummary,
   PlaylistTime,
@@ -93,50 +88,48 @@ const PageContainer = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    padding: `0 ${theme.spacing(8)}px`,
+    width: '90vw',
+    margin: '0 auto',
+    maxWidth: '1200px',
+  },
+  [theme.breakpoints.down('md')]: {
     mainContainer: {
-      padding: `0 ${theme.spacing(8)}px`,
-      width: '90vw',
-      margin: '0 auto',
-      maxWidth: '1200px',
+      padding: `0 ${theme.spacing(4)}px`,
+      width: '99vw',
     },
-    [theme.breakpoints.down('md')]: {
-      mainContainer: {
-        padding: `0 ${theme.spacing(4)}px`,
-        width: '99vw',
-      },
+  },
+  [theme.breakpoints.down('xs')]: {
+    mainContainer: {
+      padding: `0 ${theme.spacing(1.5)}px`,
+      width: '100vw',
     },
-    [theme.breakpoints.down('xs')]: {
-      mainContainer: {
-        padding: `0 ${theme.spacing(1.5)}px`,
-        width: '100vw',
-      },
-    },
-    hide: {
-      display: 'none',
-    },
-    slideUp: {
-      overflowY: 'hidden',
-      maxHeight: '800px',
-      transitionProperty: 'all',
-      transitionDuration: '5s',
-      transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
-    },
-    hidden: {
-      maxHeight: 0,
-      overflow: 'hidden',
-      transitionProperty: 'all',
-      transitionDuration: '5s',
-      transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
-    },
-    visibleContent: {
-      display: 'flex',
-    },
-    hideContent: {
-      display: 'none',
-    },
-  })
-)
+  },
+  hide: {
+    display: 'none',
+  },
+  slideUp: {
+    overflowY: 'hidden',
+    maxHeight: '800px',
+    transitionProperty: 'all',
+    transitionDuration: '5s',
+    transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
+  },
+  hidden: {
+    maxHeight: 0,
+    overflow: 'hidden',
+    transitionProperty: 'all',
+    transitionDuration: '5s',
+    transitionTimingFunction: 'cubic-bezier(0, 1, 0.5, 1)',
+  },
+  visibleContent: {
+    display: 'flex',
+  },
+  hideContent: {
+    display: 'none',
+  },
+}))
 
 export default PageContainer

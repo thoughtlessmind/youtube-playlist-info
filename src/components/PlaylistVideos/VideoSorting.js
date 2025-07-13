@@ -1,10 +1,6 @@
 import React from 'react'
-import { Box, makeStyles, createStyles, Typography } from '@material-ui/core'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import FormLabel from '@material-ui/core/FormLabel'
+import { Box, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const VideoSorting = () => {
   const classes = useStyles()
@@ -39,6 +35,6 @@ const VideoSorting = () => {
   )
 }
 
-const useStyles = makeStyles((theme) => createStyles({}))
+const useStyles = makeStyles((theme) => ({}))
 
 export default VideoSorting

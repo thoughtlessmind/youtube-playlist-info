@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
 import {
-  makeStyles,
-  createStyles,
   AppBar,
   Toolbar,
   Typography,
   Switch,
   Box,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 
 const AppName = 'YouTube Playlist Info'
@@ -44,22 +43,20 @@ const Appbar = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    appbarStyle: {
-      // backgroundColor: theme.palette.background.default,
-    },
-    appNameStyle: {
-      fontSize: '1.3rem',
-      wordSpacing: '1.5px',
-      letterSpacing: '0.3px',
-      textDecoration: 'none',
-      color: '#fff',
-    },
-    toolbarRoot:   {
-      justifyContent:   'space-between',
-    },
-  })
-)
+const useStyles = makeStyles((theme) => ({
+  appbarStyle: {
+    // backgroundColor: theme.palette.background.default,
+  },
+  appNameStyle: {
+    fontSize: '1.3rem',
+    wordSpacing: '1.5px',
+    letterSpacing: '0.3px',
+    textDecoration: 'none',
+    color: '#fff',
+  },
+  toolbarRoot: {
+    justifyContent: 'space-between',
+  },
+}))
 
 export default Appbar

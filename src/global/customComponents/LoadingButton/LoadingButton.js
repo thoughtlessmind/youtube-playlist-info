@@ -1,6 +1,7 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import { CircularProgress, makeStyles } from '@material-ui/core'
+import Button from '@mui/material/Button'
+import { CircularProgress } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 
 const LoadingButton = (props) => {

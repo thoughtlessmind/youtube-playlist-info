@@ -1,11 +1,6 @@
 import React from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Typography,
-  Paper,
-} from '@material-ui/core'
+import { Box, Typography, Paper } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import ReactPlayer from 'react-player/youtube'
 import { getProperty } from 'utils'
 
@@ -42,25 +37,23 @@ const VideoPlayer = (props) => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      backgroundColor: theme.custom.lightTransparentBackground,
-      height: '100%',
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    backgroundColor: theme.custom.lightTransparentBackground,
+    height: '100%',
+  },
+  videoDetailsContainer: {
+    marginTop: theme.spacing(2),
+    '&>h4': {
+      fontSize: '1.7rem',
+      marginBottom: theme.spacing(1),
+      borderBottom: '1px solid #ddd',
     },
-    videoDetailsContainer: {
-      marginTop: theme.spacing(2),
-      '&>h4': {
-        fontSize: '1.7rem',
-        marginBottom: theme.spacing(1),
-        borderBottom: '1px solid #ddd',
-      },
-      '&>p': {
-        whiteSpace: 'pre-wrap',
-        maxHeight: '200px',
-      },
+    '&>p': {
+      whiteSpace: 'pre-wrap',
+      maxHeight: '200px',
     },
-  })
-)
+  },
+}))
 
 export default VideoPlayer

@@ -1,11 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Typography,
-  Paper,
-} from '@material-ui/core'
+import { Box, Typography, Paper } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { abbrNumber, calculateTotalViews, getProperty } from 'utils'
 
@@ -41,18 +36,16 @@ const PlaylistSummary = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      padding: theme.spacing(4),
-      height: '100%',
-      // backgroundColor: theme.custom.lightTransparentBackground,
-    },
-    infoContainer: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  })
-)
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    padding: theme.spacing(4),
+    height: '100%',
+    // backgroundColor: theme.custom.lightTransparentBackground,
+  },
+  infoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}))
 
 export default PlaylistSummary

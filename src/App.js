@@ -1,4 +1,4 @@
-import { MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
 import { useTitle } from 'customHooks'
 import { globalStore, StoreProvider } from 'global/Contexts/PlaylistDataContext'
@@ -19,11 +19,11 @@ function App() {
   // useEffect(()=>console.log({activeTheme}),[activeTheme])
   return (
     <StoreProvider>
-        {/* <MuiThemeProvider theme={activeTheme === "light" ? lightTheme : darkTheme}> */}
+        {/* <ThemeProvider theme={activeTheme === "light" ? lightTheme : darkTheme}> */}
         <div className="App">
           <AppContainer />
         </div>
-        {/* </MuiThemeProvider> */}
+        {/* </ThemeProvider> */}
     </StoreProvider>
   )
 }

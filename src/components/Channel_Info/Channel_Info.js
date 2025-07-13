@@ -1,13 +1,8 @@
 import React, { useContext, useEffect } from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Typography,
-  Paper,
-} from '@material-ui/core'
+import { Box, Typography, Paper } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
-import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded'
+import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded'
 import { abbrNumber, calculateTotalViews, getProperty } from 'utils'
 
 const Channel_Info = () => {
@@ -55,78 +50,76 @@ const Channel_Info = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      padding: theme.spacing(4),
-      height: '100%',
-      // backgroundColor: theme.custom.lightTransparentBackground,
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    padding: theme.spacing(4),
+    height: '100%',
+    // backgroundColor: theme.custom.lightTransparentBackground,
+  },
+  infoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  upperpartContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '8px',
+    cursor: 'pointer',
+    '&:hover': {
+      // prettier-ignore
+      '& $channeltitle': {
+        '&>svg':{
+          color: '#484848',
+          transform: 'scale(1.1)',
+        }
+      },
     },
-    infoContainer: {
-      display: 'flex',
-      alignItems: 'center',
+    '&>img': {
+      height: '57px',
+      borderRadius: '50px',
     },
-    upperpartContainer: {
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: '8px',
+    '&>div': {
+      flexGrow: 1,
+    },
+  },
+  channeltitle: {
+    fontSize: '18px',
+    fontWeight: '500',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // cursor: 'pointer',
+    // '&:hover': {
+    //   '&>svg': {
+    //     color: '#484848',
+    //     transform: 'scale(1.1)',
+    //   },
+    // },
+    '&>svg': {
+      color: 'gray',
       cursor: 'pointer',
-      '&:hover': {
-        // prettier-ignore
-        '& $channeltitle': {
-          '&>svg':{
-            color: '#484848',
-            transform: 'scale(1.1)',
-          }
-        },
-      },
-      '&>img': {
-        height: '57px',
-        borderRadius: '50px',
-      },
-      '&>div': {
-        flexGrow: 1,
-      },
-    },
-    channeltitle: {
-      fontSize: '18px',
-      fontWeight: '500',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      // cursor: 'pointer',
+      fontSize: '16px',
+      transition: '0.2s',
       // '&:hover': {
-      //   '&>svg': {
-      //     color: '#484848',
-      //     transform: 'scale(1.1)',
-      //   },
+      //   color: '#000',
+      //   fontSize: '14px',
       // },
-      '&>svg': {
-        color: 'gray',
-        cursor: 'pointer',
-        fontSize: '16px',
-        transition: '0.2s',
-        // '&:hover': {
-        //   color: '#000',
-        //   fontSize: '14px',
-        // },
-      },
     },
-    channelDescription: {
-      lineHeight: '1',
-      WebkitLineClamp: 3,
-      overflow: 'hidden',
-      display: '-webkit-box',
-      textOverflow: 'ellipsis',
-      WebkitBoxOrient: 'vertical',
-    },
-    subscribersLine: {
-      marginLeft: '65px',
-      fontWeight: '500',
-      fontSize: 14,
-      marginTop: theme.spacing(1),
-    },
-  })
-)
+  },
+  channelDescription: {
+    lineHeight: '1',
+    WebkitLineClamp: 3,
+    overflow: 'hidden',
+    display: '-webkit-box',
+    textOverflow: 'ellipsis',
+    WebkitBoxOrient: 'vertical',
+  },
+  subscribersLine: {
+    marginLeft: '65px',
+    fontWeight: '500',
+    fontSize: 14,
+    marginTop: theme.spacing(1),
+  },
+}))
 
 export default Channel_Info

@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
   Box,
-  createStyles,
   FormControl,
   InputAdornment,
   InputLabel,
-  makeStyles,
   OutlinedInput,
   Snackbar,
-} from '@material-ui/core'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import LoadingButton from 'global/customComponents/LoadingButton/LoadingButton'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import { getDetailsByVideoId, searchPlayListApi } from 'api'
 import { getIdFromUrl } from 'utils'
 import { getChannelInfo } from 'api/api'
-import MuiAlert from '@material-ui/lab/Alert'
+import MuiAlert from '@mui/material/Alert'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
@@ -117,33 +116,31 @@ const SearchBar = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    formContainerStyles: {
-      height: (props) => (props.initiatedSearch ? '30vh' : '70vh'),
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'height 0.5s ease-out',
-    },
-    formStyles: {
-      width: '60%',
+const useStyles = makeStyles((theme) => ({
+  formContainerStyles: {
+    height: (props) => (props.initiatedSearch ? '30vh' : '70vh'),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'height 0.5s ease-out',
+  },
+  formStyles: {
+    width: '60%',
+    minWidth: '290px',
+    backdropFilter: 'blur(26px)',
+    '& > div:first-child': {
+      width: '100%',
+      maxWidth: '800px',
       minWidth: '290px',
-      backdropFilter: 'blur(26px)',
-      '& > div:first-child': {
-        width: '100%',
-        maxWidth: '800px',
-        minWidth: '290px',
-      },
     },
-    inputLabelStyle: {
-      top: '-7px',
-      left: '21px',
-    },
-    outlinedInputStyle: {
-      // color:   '#000',
-    },
-  })
-)
+  },
+  inputLabelStyle: {
+    top: '-7px',
+    left: '21px',
+  },
+  outlinedInputStyle: {
+    // color:   '#000',
+  },
+}))
 
 export default SearchBar

@@ -1,15 +1,10 @@
 import React, { useContext } from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Grid,
-  Typography,
-} from '@material-ui/core'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import EventIcon from '@material-ui/icons/Event'
+import { Box, Grid, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import EventIcon from '@mui/icons-material/Event'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { abbrNumber, parseISODuration, secondToMinutes } from 'utils'
@@ -108,98 +103,96 @@ const VideoCards = (props) => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    cardContainer: {
-      cursor: 'pointer',
+const useStyles = makeStyles((theme) => ({
+  cardContainer: {
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    borderRadius: theme.shape.borderRadius,
+    position: 'relative',
+    marginTop: '8px',
+    borderBottom: '1px solid #d8d6d6b8',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      '& $openIcon': {
+        transform: 'scale(1)',
+      },
+    },
+    '&.active': {
+      backgroundColor: theme.palette.action.selected,
       transition: 'background-color 0.2s',
-      borderRadius: theme.shape.borderRadius,
-      position: 'relative',
-      marginTop: '8px',
-      borderBottom: '1px solid #d8d6d6b8',
-      '&:hover': {
-        backgroundColor: theme.palette.action.hover,
-        '& $openIcon': {
-          transform: 'scale(1)',
-        },
-      },
-      '&.active': {
-        backgroundColor: theme.palette.action.selected,
-        transition: 'background-color 0.2s',
-      },
     },
-    imageWrapper: {
-      width: 'fit-content',
-      position: 'relative',
+  },
+  imageWrapper: {
+    width: 'fit-content',
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    '& > img': {
       borderRadius: theme.shape.borderRadius,
-      '& > img': {
-        borderRadius: theme.shape.borderRadius,
-      },
     },
-    imageOverlay: {
-      position: 'absolute',
-      background: 'rgba(0,0,0,0.8)',
-      color: '#fff',
-      padding: '5px',
-      lineHeight: '0.8',
-      fontSize: '12px',
-      letterSpacing: '0.5px',
-    },
-    imageOverlayIndex: {
-      top: '0',
-      left: '0',
-      borderRadius: theme.shape.borderRadius,
-      // borderBottomRightRadius: theme.shape.borderRadius,
-      // borderTopRighttRadius: theme.shape.borderRadius,
-    },
-    imageOverlayTime: {
-      bottom: 5,
-      right: 0,
-      borderRadius: theme.shape.borderRadius,
+  },
+  imageOverlay: {
+    position: 'absolute',
+    background: 'rgba(0,0,0,0.8)',
+    color: '#fff',
+    padding: '5px',
+    lineHeight: '0.8',
+    fontSize: '12px',
+    letterSpacing: '0.5px',
+  },
+  imageOverlayIndex: {
+    top: '0',
+    left: '0',
+    borderRadius: theme.shape.borderRadius,
+    // borderBottomRightRadius: theme.shape.borderRadius,
+    // borderTopRighttRadius: theme.shape.borderRadius,
+  },
+  imageOverlayTime: {
+    bottom: 5,
+    right: 0,
+    borderRadius: theme.shape.borderRadius,
 
-      // borderBottomLeftRadius: theme.shape.borderRadius,
-      // borderTopLeftRadius: theme.shape.borderRadius,
-    },
-    videoTitle: {
-      display: '-webkit-box',
-      WebkitLineClamp: '2',
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
-    },
-    statsContainer: {
+    // borderBottomLeftRadius: theme.shape.borderRadius,
+    // borderTopLeftRadius: theme.shape.borderRadius,
+  },
+  videoTitle: {
+    display: '-webkit-box',
+    WebkitLineClamp: '2',
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
+  statsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(0.5),
+    '& > span': {
       display: 'flex',
       alignItems: 'center',
-      marginTop: theme.spacing(0.5),
-      '& > span': {
-        display: 'flex',
-        alignItems: 'center',
-        marginRight: theme.spacing(3),
-        '& > svg': {
-          marginRight: theme.spacing(0.5),
-          fontSize: '16px',
-          color: 'gray',
-        },
+      marginRight: theme.spacing(3),
+      '& > svg': {
+        marginRight: theme.spacing(0.5),
+        fontSize: '16px',
+        color: 'gray',
       },
     },
-    openIcon: {
-      position: 'absolute',
-      bottom: '10px',
-      right: '10px',
-      transform: 'scale(0)',
-      transition: 'transform 0.15s ease-in-out ',
+  },
+  openIcon: {
+    position: 'absolute',
+    bottom: '10px',
+    right: '10px',
+    transform: 'scale(0)',
+    transition: 'transform 0.15s ease-in-out ',
+  },
+  [theme.breakpoints.down('sm')]: {
+    videoTitle: {
+      fontSize: '0.8rem',
     },
-    [theme.breakpoints.down('sm')]: {
-      videoTitle: {
-        fontSize: '0.8rem',
-      },
+  },
+  [theme.breakpoints.down('xs')]: {
+    videoTitle: {
+      fontSize: '0.8rem',
     },
-    [theme.breakpoints.down('xs')]: {
-      videoTitle: {
-        fontSize: '0.8rem',
-      },
-    },
-  })
-)
+  },
+}))
 
 VideoCards.propTypes = {
   thumbnail: PropTypes.string.isRequired,

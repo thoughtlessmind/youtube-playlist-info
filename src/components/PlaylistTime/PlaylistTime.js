@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {
-  Box,
-  makeStyles,
-  createStyles,
-  Typography,
-  Paper,
-} from '@material-ui/core'
+import { Box, Typography, Paper } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { getProperty, parseISODuration, secondToMinutes } from 'utils'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
 import Moment from 'react-moment'
@@ -112,36 +107,34 @@ const PlaylistTime = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      padding: theme.spacing(4),
-      // backgroundColor: theme.custom.lightTransparentBackground,
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    padding: theme.spacing(4),
+    // backgroundColor: theme.custom.lightTransparentBackground,
+  },
+  listStyle: {
+    listStyle: 'none',
+    '& li>span': {
+      width: theme.spacing(6),
+      display: 'inline-block',
+      color: theme.palette.text.secondary,
     },
-    listStyle: {
-      listStyle: 'none',
-      '& li>span': {
-        width: theme.spacing(6),
-        display: 'inline-block',
-        color: theme.palette.text.secondary,
-      },
+  },
+  oneLineDataContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    '& span:first-child ': {
+      width: '100px',
+      display: 'inline-block',
+      textAlign: 'right',
+      marginRight: '10px',
+      whiteSpace: 'nowrap',
     },
-    oneLineDataContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      '& span:first-child ': {
-        width: '100px',
-        display: 'inline-block',
-        textAlign: 'right',
-        marginRight: '10px',
-        whiteSpace: 'nowrap',
-      },
-    },
-    secondaryText: {
-      fontSize: '18px',
-    },
-  })
-)
+  },
+  secondaryText: {
+    fontSize: '18px',
+  },
+}))
 
 const areEqual = (prev, next) => {
   return false

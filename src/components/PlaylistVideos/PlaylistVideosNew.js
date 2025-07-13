@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Paper,
-  makeStyles,
-  createStyles,
   Typography,
   Divider,
   Box,
@@ -10,8 +8,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@material-ui/core'
-import SwapVertIcon from '@material-ui/icons/SwapVert'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import SwapVertIcon from '@mui/icons-material/SwapVert'
 import { getProperty, parseISODuration } from 'utils'
 import VideoCards from 'components/VideoCards/VideoCards'
 import { globalStore } from 'global/Contexts/PlaylistDataContext'
@@ -94,37 +93,35 @@ const PlaylistVideosNew = () => {
   )
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    mainContainer: {
-      padding: theme.spacing(2),
-      // backgroundColor: theme.custom.lightTransparentBackground,
-    },
-    headerContainer: {
+const useStyles = makeStyles((theme) => ({
+  mainContainer: {
+    padding: theme.spacing(2),
+    // backgroundColor: theme.custom.lightTransparentBackground,
+  },
+  headerContainer: {
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& > h5': {
       marginBottom: theme.spacing(1),
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      '& > h5': {
-        marginBottom: theme.spacing(1),
-      },
     },
-    videosConainer: {
-      maxHeight: '500px',
-      overflowY: 'scroll',
-      overflowX: 'hidden',
-      // height: '600px',
-    },
-    sortSelect: {
-      width: '200px',
-    },
-    inputClass: {
-      padding: '12px',
-    },
-    sortInputLabelStyle: {
-      transform: 'translate(15px, 14px) scale(1)',
-    },
-  })
-)
+  },
+  videosConainer: {
+    maxHeight: '500px',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    // height: '600px',
+  },
+  sortSelect: {
+    width: '200px',
+  },
+  inputClass: {
+    padding: '12px',
+  },
+  sortInputLabelStyle: {
+    transform: 'translate(15px, 14px) scale(1)',
+  },
+}))
 
 export default PlaylistVideosNew
